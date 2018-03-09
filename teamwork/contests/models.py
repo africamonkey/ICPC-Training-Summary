@@ -2,6 +2,7 @@ from django.db import models
 
 class Contest(models.Model):
 	name = models.CharField(max_length = 200)
+	source = models.CharField(max_length = 200)
 	date = models.DateTimeField()
 	NUM_OF_PROBLEM = (
 		(5, '5 - E'),

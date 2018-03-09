@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
 	'contests',
 	'users',
+	'index_page',
 ]
 
 MIDDLEWARE = [
