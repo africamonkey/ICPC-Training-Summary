@@ -1,4 +1,5 @@
 from django.db import models
+from simple_history.models import HistoricalRecords
 
 class Contest(models.Model):
 	name = models.CharField(max_length = 200)
@@ -19,6 +20,7 @@ class Contest(models.Model):
 		choices = NUM_OF_PROBLEM,
 		default = 5,
 	)
+	history = HistoricalRecords()
 
 	def __str__(self):
 		return self.name
