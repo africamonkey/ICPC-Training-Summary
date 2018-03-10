@@ -1,0 +1,15 @@
+{% extends "index_page/base.html" %}
+
+{% block content %}
+
+<p>Contests</p>
+
+<ul>
+	{% for i in contest %}
+		<li> {{i}} </li>
+	{% empty %}
+		<li> No contests have been added yet. </li>
+	{% endfor %}
+</ul>
+
+{% endblock content %}
