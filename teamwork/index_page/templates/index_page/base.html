@@ -1,6 +1,6 @@
 <p>
 	{% if user.is_authenticated %}
-		Hello, {{ user.username }}.
+		Hello, {{ user.username }}, {{ user.userprofile.team_name }} ( {{user.userprofile.team_member_1}}, {{user.userprofile.team_member_2}}, {{user.userprofile.team_member_3}} ).
 		<a href="{% url 'users:logout' %}">log out</a>
 	{% else %}
 		<a href="{% url 'users:login' %}" >log in</a>
