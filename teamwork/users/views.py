@@ -36,6 +36,7 @@ def register(request):
 			profile.team_member_1 = team_form.cleaned_data["team_member_1"]
 			profile.team_member_2 = team_form.cleaned_data["team_member_2"]
 			profile.team_member_3 = team_form.cleaned_data["team_member_3"]
+			profile.team_description = team_form.cleaned_data["team_description"]
 			profile.save()
 			return HttpResponseRedirect(reverse('users:login'))
 	context = {
