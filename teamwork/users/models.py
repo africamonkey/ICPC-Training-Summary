@@ -12,6 +12,7 @@ class UserProfile(models.Model):
 	team_member_1 = models.CharField(max_length = 200)
 	team_member_2 = models.CharField(max_length = 200)
 	team_member_3 = models.CharField(max_length = 200)
+	team_description = models.TextField()
 
 	def __unicode__(self):
 		return self.user.username
