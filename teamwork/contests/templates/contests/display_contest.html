@@ -1,0 +1,17 @@
+{% extends "index_page/base.html" %}
+
+{% block content %}
+
+	<p>Contest Detail</p>
+		<li>
+			<p> {{ contest.name }} </p>
+			<p> {{ contest.source }} </p>
+			<p> {{ contest.date }} </p>
+			<p> {{ contest.num_of_problem }} </p>
+			<p>
+				<a href="{% url 'contests:edit_contest' contest.id %}">edit contest</a>
+			</p>
+		</li>
+	</p>
+
+{% endblock content %}

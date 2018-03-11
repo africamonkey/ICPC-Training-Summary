@@ -6,7 +6,7 @@
 
 <ul>
 	{% for i in contest %}
-		<li> {{i}} </li>
+		<li><a href="{% url 'contests:display_contest' i.id %}">{{i.name}}</a> {{i.source}} <a href="{% url 'contests:edit_contest' i.id %}">edit</a></li>
 	{% empty %}
 		<li> No contests have been added yet. </li>
 	{% endfor %}
