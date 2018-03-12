@@ -20,6 +20,18 @@ class Contest(models.Model):
 		choices = NUM_OF_PROBLEM,
 		default = 5,
 	)
+
+	CONTEST_TYPE = (
+		('Online', 'Online Practice Contest (Virtual Contest)'),
+		('Onsite', 'Onsite Official Contest (ICPC / CCPC / GDCPC)'),
+	)
+	contest_type = models.CharField(
+		choices = CONTEST_TYPE,
+		default = 'Online',
+		max_length = 6,
+	)
+
+	contest_link = models.CharField(max_length = 200)
 	history = HistoricalRecords()
 
 	def __str__(self):
