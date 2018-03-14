@@ -1,11 +1,29 @@
-<p>
-	{% if user.is_authenticated %}
-		Hello, {{ user.username }}, {{ user.userprofile.team_name }} ( {{user.userprofile.team_member_1}}, {{user.userprofile.team_member_2}}, {{user.userprofile.team_member_3}} ).
-		<a href="{% url 'users:logout' %}">log out</a>
-	{% else %}
-		<a href="{% url 'users:login' %}" >log in</a>
-	{% endif %}
-</p>
+{% extends 'index_page/test_base.html' %}
 
+
+{% block test_content %}
+{% load static %}<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Test title{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    {% block stylesheet %}{% endblock %}  
+  </head>
+<body>
+  <div class="container">
+    <p>
+      {% if user.is_authenticated %}
+        Hello, {{ user.username }}, {{ user.userprofile.team_name }} ( {{user.userprofile.team_member_1}}, {{user.userprofile.team_member_2}}, {{user.userprofile.team_member_3}} ).
+        <a href="{% url 'users:logout' %}">log out</a>
+      {% else %}
+        <a href="{% url 'users:login' %}" >log in</a>
+      {% endif %}
+    </p>
+  </div>
+</body>
+  
 {% block content %}
 {% endblock content %}
+
+{% endblock test_content %}
