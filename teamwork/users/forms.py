@@ -21,3 +21,4 @@ class TeamForm(forms.ModelForm):
 			'team_member 3': 'Team Member 3',
 			'team_description': 'Team Description',
 		}
+
