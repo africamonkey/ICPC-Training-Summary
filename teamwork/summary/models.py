@@ -7,6 +7,7 @@ class Status(models.Model):
     owner = models.ForeignKey(UserProfile, on_delete = models.CASCADE)
     contest = models.ForeignKey(Contest, on_delete = models.CASCADE)
     summary = models.TextField()
-    ac_status = models.BigIntegerField()
-    contributor = models.BigIntegerField()
+    ac_status = models.BigIntegerField(default = 0, null = True, blank = True)
     
+    def __str__(self):
+        return self.summary

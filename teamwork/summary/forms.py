@@ -1,22 +1,23 @@
 from django import forms
 
+from django.contrib.auth.models import User
+
 from .models import Status
+from contests.models import Contest
 from users.models import UserProfile
 
 class StatusForm(forms.Form):
-    summary = forms.CharField(min_length = 50)
 
-    def __init__(self,profile, *args, **kwargs):
-        STATUS_OF_AC = (
-		    ('0', 'Solved'),
-		    ('1', 'Upsolved'),
-		    ('2', 'Not Solved'),
-	    )
-        for i in range(0,num_of_problem):
-            CONTRIBUTOR_OF_PROBLEM = [
-                ()
-            ]
+    def __init__(self, contest_id, *args, **kwargs):
+        super(StatusForm, self).__init__(*args, **kwargs)
+        self.fields['summary'] = forms.CharField(required=True)
+        cts = Contest.objects.get(id = contest_id)
+        STATUS_OF_AC = [
+		    ('1', 'Solved'),
+		    ('2', 'Upsolved'),
+		    ('3', 'Not Solved'),
+	    ]
+        for i in range(0, cts.num_of_problem):
             self.fields['p'+str(i)] = forms.ChoiceField(choices = STATUS_OF_AC)
-            self.initial['p'+str(i)] = '2'
-        super(StatusForm, self).__init__(args,kwargs)
+            self.initial['p'+str(i)] = '3'
         

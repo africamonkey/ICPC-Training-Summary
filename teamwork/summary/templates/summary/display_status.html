@@ -1,0 +1,17 @@
+{% extends "index_page/base.html" %}
+
+{% block content %}
+
+	<p>Contest Detail</p>
+		<li>
+			<p> {{ status.contest.name }} </p>
+			<p> {{ status.contest.source }} </p>
+			<p> {{ status.contest.date }} </p>
+            <p> {{ status.contest.num_of_problem }} </p>
+            <br />
+            <p> {{ status.summary }}</p>
+            <p> {{ status.ac_status }}</p>
+		</li>
+	</p>
+
+{% endblock content %}
