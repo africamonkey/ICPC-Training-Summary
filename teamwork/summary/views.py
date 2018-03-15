@@ -63,11 +63,15 @@ def add_status(request, user_id, contest_id):
         if form.is_valid():
             status = Status.objects.create(owner=user.userprofile, contest=cts)
             status.summary = form.cleaned_data["summary"]
-            t = []
+            ac_s = []
+            ctb = []
             for key, value in form.cleaned_data.items():
                 if key[0] == 'p':
-                    t.append(value)
-            status.ac_status = strlist_to_int(t, 4)
+                    ac_s.append(value)
+                elif key[0] == 'c':
+                    ctb.append(str(strlist_to_int(value, 1)))
+            status.ac_status = strlist_to_int(ac_s, 4)
+            status.contributor = strlist_to_int(ctb, 8)
             status.save()
             return HttpResponseRedirect(reverse(
                 'summary:display_status',
