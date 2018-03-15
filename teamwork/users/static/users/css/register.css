@@ -1,0 +1,19 @@
+body {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+body textarea{
+    resize: none;
+}
+.form-register {
+    width: 100%;
+    max-width: 500px;
+    padding: 15px;
+    margin: 0 auto;
+  }
+
+.item {
+    padding: 10px;
+    font-size: 20px;
+}

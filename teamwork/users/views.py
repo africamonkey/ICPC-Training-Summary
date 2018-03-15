@@ -43,6 +43,7 @@ def register(request):
 		'user_form': user_form,
 		'team_form': team_form,
 	}
+	print(team_form)
 	return render(request, 'users/register.html', context)
 
 
