@@ -1,7 +1,9 @@
-{% extends "index_page/base.html" %}
+{% extends "index_page/base.html" %} 
 
-{% block content %}
+{% block content %} 
 
-<p>Hello world!</p>
-
-{% endblock content %}
+{% if user.is_authenticated %} 
+<p>Hello, {{ user.username }}, {{ user.userprofile.team_name}} ( {{user.userprofile.team_member_1}}, {{user.userprofile.team_member_2}}, {{user.userprofile.team_member_3}} ). </p>
+{% else %}
+<p>Please login first</p>
+{% endif %} {% endblock content %}
