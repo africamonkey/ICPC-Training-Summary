@@ -31,6 +31,7 @@ class StatusForm(forms.Form):
             ]
             self.fields['c' + str(i)] = forms.MultipleChoiceField(
                 choices=CONTRIBUTOR_FIELD,
-                widget=forms.CheckboxSelectMultiple()
+                widget=forms.CheckboxSelectMultiple(),
+                required=False
             )
             self.initial['c' + str(i)] = []

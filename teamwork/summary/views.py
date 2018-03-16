@@ -55,7 +55,7 @@ def add_status(request, user_id, contest_id):
     cts = get_object_or_404(Contest, pk=contest_id)
     user = get_user(request)
     if user.id != user_id:
-        return HttpResponseRedirect(reverse('summary:display_status', args=[user_id, contest_id]))
+        return HttpResponseRedirect(reverse('summary:index'))
     if request.method != 'POST':
         form = StatusForm(contest_id=contest_id, user_id=user_id)
     else:
