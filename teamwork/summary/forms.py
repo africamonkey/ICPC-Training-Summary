@@ -2,12 +2,16 @@ from django import forms
 
 from django.contrib.auth.models import User
 
-# from .models import Status
+from .models import Status
 from contests.models import Contest
 # from users.models import UserProfile
 
 
-class StatusForm(forms.Form):
+class StatusForm(forms.ModelForm):
+
+    class Meta:
+        model = Status
+        fields = ['summary']
 
     def __init__(self, contest_id, user_id, *args, **kwargs):
         super(StatusForm, self).__init__(*args, **kwargs)

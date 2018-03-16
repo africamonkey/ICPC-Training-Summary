@@ -61,8 +61,7 @@ def add_status(request, user_id, contest_id):
     else:
         form = StatusForm(contest_id=contest_id, user_id=user_id, data=request.POST)
         if form.is_valid():
-            status = Status.objects.create(owner=user.userprofile, contest=cts)
-            status.summary = form.cleaned_data["summary"]
+            # convert string from fields to ac_status and contributor
             ac_s = []
             ctb = []
             for key, value in form.cleaned_data.items():
@@ -70,9 +69,39 @@ def add_status(request, user_id, contest_id):
                     ac_s.append(value)
                 elif key[0] == 'c':
                     ctb.append(str(strlist_to_int(value, 1)))
+            # complete the status
+            status = form.save(commit=False)
+            status.owner = user.userprofile
+            status.contest = cts
             status.ac_status = strlist_to_int(ac_s, 4)
             status.contributor = strlist_to_int(ctb, 8)
             status.save()
+            return HttpResponseRedirect(reverse(
+                'summary:display_status',
+                args=[user_id, contest_id]
+            ))
+
+    context = {'user_handle': user, 'contest': cts, 'form': form}
+    return render(request, 'summary/add_status.html', context)
+
+
+def edit_status(request, user_id, contest_id):
+    cts = get_object_or_404(Contest, pk=contest_id)
+    user = get_user(request)
+    if user.id != user_id:
+        return HttpResponseRedirect(reverse('summary:index'))
+    status = Status.objects.get(owner=user.userprofile, contest=cts)
+    ac_s = int_to_strlist(status.ac_status, 4, cts.num_of_problem)
+    ctb = int_to_strlist(status.contributor, 8, cts.num_of_problem)
+    initial_value = {}
+    for i in range(0, cts.num_of_problem):
+        initial_value['p' + str(i)] = ac_s[i]
+        initial_value['c' + str(i)] = int_to_strlist(int(ctb[i], ))
+    if request.method != 'POST':
+        form = StatusForm(contest_id=contest_id, user_id=user_id)
+    else:
+        form = StatusForm(contest_id=contest_id, user_id=user_id, data=request.POST)
+        if form.is_valid():
             return HttpResponseRedirect(reverse(
                 'summary:display_status',
                 args=[user_id, contest_id]
