@@ -1,5 +1,5 @@
 from django.urls import path
-from django.contrib.auth.views import login
+from django.contrib.auth import views as auth_views
 
 from . import views
 
@@ -10,4 +10,7 @@ urlpatterns = [
 	path('logout/', views.logout_view, name='logout'),
 	path('register/', views.register, name='register'),
 	path('profile/<int:user_id>/', views.show_user, name='show_user'),
+	path('change_password/', views.change_password, name='change_password'),
+	path('change_password_done/', views.change_password_done, name='change_password_done'),
+	path('modify_profiles/', views.modify_profiles, name='modify_profiles'),
 ]
