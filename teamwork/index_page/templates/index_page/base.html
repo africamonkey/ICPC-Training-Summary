@@ -37,10 +37,10 @@
               {{ user.username }}
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
-              <a class="dropdown-item" href="#">My Account</a>
-              <a class="dropdown-item" href="#">Change Password</a>
+              <a class="dropdown-item" href="{% url 'users:show_user' request.user.id %}">My Team</a>
+              <a class="dropdown-item" href="{% url 'users:change_password' %}">Change Password</a>
+              <a class="dropdown-item" href="{% url 'users:modify_profiles' %}">Modify Profiles</a>
               <div class="dropdown-divider"></div>
-              <!-- <a class="dropdown-item" href="{ url 'logout' }">Log out</a> -->
               <a class="dropdown-item" href="{% url 'users:logout' %}">Log out</a>
             </div>
           </li>

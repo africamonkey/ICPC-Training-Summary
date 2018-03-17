@@ -1,0 +1,15 @@
+{% extends "users/base.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block title %}Modify Profiles{% endblock title %}
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'users/css/login.css' %}">
+{% endblock stylesheet %}
+
+{% block content %}
+  <form action="{% url 'users:modify_profiles' %}" method='post'>
+    {% csrf_token %}
+	{{ form.as_p}}
+	<button name="submit">Submit</button>
+  </form>
+{% endblock content %}
