@@ -52,6 +52,6 @@ def show_user(request, user_id):
 	profile = get_object_or_404(UserProfile, user=user)
 	context = {
 		'user': user,
-		'profile': profile
+		'profile': profile,
 	}
 	return render(request, 'users/show_user.html', context)
