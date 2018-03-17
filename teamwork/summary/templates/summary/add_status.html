@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<p>Add a contest</p>
+<p>Add a status</p>
 
 <form action="{% url 'summary:add_status' user_handle.id contest.id %}" method='post'>
 	{% csrf_token %}

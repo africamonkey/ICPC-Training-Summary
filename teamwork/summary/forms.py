@@ -1,13 +1,24 @@
 from django import forms
+from django.forms import Textarea
 
 from django.contrib.auth.models import User
 
-# from .models import Status
+from .models import Status
 from contests.models import Contest
 # from users.models import UserProfile
 
 
-class StatusForm(forms.Form):
+class StatusForm(forms.ModelForm):
+
+    class Meta:
+        model = Status
+        fields = ['summary']
+        widgets = {
+            'summary': Textarea(attrs={'cols': 50, 'rows': 5})
+        }
+        labels = {
+            'summary': 'Summary'
+        }
 
     def __init__(self, contest_id, user_id, *args, **kwargs):
         super(StatusForm, self).__init__(*args, **kwargs)
@@ -21,6 +32,7 @@ class StatusForm(forms.Form):
         ]
         for i in range(0, cts.num_of_problem):
             self.fields['p' + str(i)] = forms.ChoiceField(
+                label='Problem ' + chr(ord('A') + i),
                 choices=STATUS_OF_AC
             )
             self.initial['p' + str(i)] = '3'
@@ -30,6 +42,7 @@ class StatusForm(forms.Form):
                 ('4', user.userprofile.team_member_3),
             ]
             self.fields['c' + str(i)] = forms.MultipleChoiceField(
+                label='Contributor',
                 choices=CONTRIBUTOR_FIELD,
                 widget=forms.CheckboxSelectMultiple(),
                 required=False

@@ -29,6 +29,21 @@ def int_to_strlist(ans, rankpos, rank):
     return strlist
 
 
+def ctblist_to_strlist(ctb):
+    strlist = []
+    for i in ctb:
+        tmp = []
+        w = int(i)
+        if ((w & 1) == 1):
+            tmp.append('1')
+        if ((w & 2) == 2):
+            tmp.append('2')
+        if ((w & 4) == 4):
+            tmp.append('4')
+        strlist.append(tmp)
+    return strlist
+
+
 def index(request):
     user = get_user(request)
     return HttpResponseRedirect(reverse('summary:home', args=[user.id]))
@@ -47,13 +62,17 @@ def display_status(request, user_id, contest_id):
         status = Status.objects.get(contest=cts, owner=user.userprofile)
     except ObjectDoesNotExist:
         return HttpResponseRedirect(reverse('summary:add_status', args=[user_id, contest_id]))
-    context = {'status': status}
+    context = {'status': status, 'contest_id': contest_id, 'user_id': user_id}
     return render(request, 'summary/display_status.html', context)
 
 
 def add_status(request, user_id, contest_id):
     cts = get_object_or_404(Contest, pk=contest_id)
     user = get_user(request)
+    try:
+        user.userprofile
+    except ObjectDoesNotExist:
+        return HttpResponseRedirect(reverse('summary:index'))
     if user.id != user_id:
         return HttpResponseRedirect(reverse('summary:index'))
     if request.method != 'POST':
@@ -61,8 +80,7 @@ def add_status(request, user_id, contest_id):
     else:
         form = StatusForm(contest_id=contest_id, user_id=user_id, data=request.POST)
         if form.is_valid():
-            status = Status.objects.create(owner=user.userprofile, contest=cts)
-            status.summary = form.cleaned_data["summary"]
+            # convert string from fields to ac_status and contributor
             ac_s = []
             ctb = []
             for key, value in form.cleaned_data.items():
@@ -70,6 +88,10 @@ def add_status(request, user_id, contest_id):
                     ac_s.append(value)
                 elif key[0] == 'c':
                     ctb.append(str(strlist_to_int(value, 1)))
+            # complete the status
+            status = form.save(commit=False)
+            status.owner = user.userprofile
+            status.contest = cts
             status.ac_status = strlist_to_int(ac_s, 4)
             status.contributor = strlist_to_int(ctb, 8)
             status.save()
@@ -80,3 +102,43 @@ def add_status(request, user_id, contest_id):
 
     context = {'user_handle': user, 'contest': cts, 'form': form}
     return render(request, 'summary/add_status.html', context)
+
+
+def edit_status(request, user_id, contest_id):
+    cts = get_object_or_404(Contest, pk=contest_id)
+    user = get_user(request)
+    if user.id != user_id:
+        return HttpResponseRedirect(reverse('summary:index'))
+    status = Status.objects.get(owner=user.userprofile, contest=cts)
+    if request.method != 'POST':
+        ac_s = int_to_strlist(status.ac_status, 4, cts.num_of_problem)
+        ctb = ctblist_to_strlist(int_to_strlist(status.contributor, 8, cts.num_of_problem))
+        initial_value = {}
+        initial_value['summary'] = status.summary
+        for i in range(0, cts.num_of_problem):
+            initial_value['p' + str(i)] = ac_s[i]
+            initial_value['c' + str(i)] = ctb[i]
+        form = StatusForm(contest_id=contest_id, user_id=user_id, data=initial_value)
+    else:
+        form = StatusForm(contest_id=contest_id, user_id=user_id, data=request.POST)
+        if form.is_valid():
+            # convert string from fields to ac_status and contributor
+            ac_s = []
+            ctb = []
+            for key, value in form.cleaned_data.items():
+                if key[0] == 'p':
+                    ac_s.append(value)
+                elif key[0] == 'c':
+                    ctb.append(str(strlist_to_int(value, 1)))
+            # rewrite the status
+            status.summary = form.cleaned_data['summary']
+            status.ac_status = strlist_to_int(ac_s, 4)
+            status.contributor = strlist_to_int(ctb, 8)
+            status.save()
+            return HttpResponseRedirect(reverse(
+                'summary:display_status',
+                args=[user_id, contest_id]
+            ))
+
+    context = {'user_handle': user, 'contest': cts, 'form': form}
+    return render(request, 'summary/edit_status.html', context)

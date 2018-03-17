@@ -12,6 +12,8 @@
             <p> {{ status.summary }}</p>
 			<p> {{ status.ac_status }}</p>
 			<p> {{ status.contributor }}</p>
+
+			<a href="{% url 'summary:edit_status' user_id contest_id %}">Edit Summary</a></li>
 		</li>
 	</p>
 
