@@ -72,7 +72,7 @@ def add_status(request, user_id, contest_id):
     try:
         user.userprofile
     except ObjectDoesNotExist:
-        return HttpResponseRedirect(reverse('summary:index'))
+        return HttpResponseRedirect(reverse('users:modify_profiles'))
     if user.id != user_id:
         return HttpResponseRedirect(reverse('summary:index'))
     if request.method != 'POST':
