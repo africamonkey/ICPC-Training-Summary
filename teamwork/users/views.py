@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User
 from .models import UserProfile
 from .forms import TeamForm
 
@@ -46,4 +47,11 @@ def register(request):
 	print(team_form)
 	return render(request, 'users/register.html', context)
 
-
+def show_user(request, user_id):
+	user = get_object_or_404(User, pk=user_id)
+	profile = get_object_or_404(UserProfile, user=user)
+	context = {
+		'user': user,
+		'profile': profile,
+	}
+	return render(request, 'users/show_user.html', context)
