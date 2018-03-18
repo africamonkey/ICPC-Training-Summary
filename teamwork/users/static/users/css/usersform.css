@@ -6,7 +6,7 @@ body {
 body textarea{
     resize: none;
 }
-.form-register {
+.form-users {
     width: 100%;
     max-width: 500px;
     padding: 15px;
@@ -16,4 +16,13 @@ body textarea{
 .item {
     padding: 10px;
     font-size: 20px;
+}
+
+.error-message {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 12px;
+    border: 1px solid;
+    /* width: 90%; */
+    border-radius: 2px;
 }

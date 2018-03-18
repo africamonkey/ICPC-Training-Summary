@@ -3,12 +3,9 @@
 {% load widget_tweaks %}
 
 {% block title %}Register{% endblock title %}
-{% block stylesheet %}
-<link rel="stylesheet" href="{% static 'users/css/register.css' %}">
-{% endblock stylesheet %}
 {% block content %}
 
-  <form class="form-register" method="post" action="{% url 'users:register' %}">
+  <form class="form-users" method="post" action="{% url 'users:register' %}">
     {% csrf_token %}
     <h2>Register</h2>
     <hr>
