@@ -2,6 +2,7 @@ from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
+from simple_history.models import HistoricalRecords
 
 class UserProfile(models.Model):
 	user = models.OneToOneField(
@@ -13,6 +14,7 @@ class UserProfile(models.Model):
 	team_member_2 = models.CharField(max_length = 200)
 	team_member_3 = models.CharField(max_length = 200)
 	team_description = models.TextField()
+	history = HistoricalRecords()
 
 	def __unicode__(self):
 		return self.user.username
