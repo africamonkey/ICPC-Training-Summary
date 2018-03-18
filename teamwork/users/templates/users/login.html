@@ -7,6 +7,9 @@
 {% endblock stylesheet %}
 
 {% block content %}
+  {% if user.is_authenticated %}
+    <p>You have login. Go back to <a href="/">index</a></p>
+  {% else %}
   <form class="form-signin" method="post" action="{% url 'users:login' %}" novalidate>
       {% csrf_token %}
       <label for="id_username" class="sr-only">Username</label>
@@ -17,4 +20,5 @@
     <a href="{% url 'users:register' %}" class="btn btn-outline-primary">注册</a>
     <input  type="hidden" name="next" value="{% url 'index_page:index' %}" />
   </form>
+  {% endif %}
 {% endblock content %}

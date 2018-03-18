@@ -98,6 +98,6 @@ def modify_profiles(request):
 			profile.save()
 			return HttpResponseRedirect(reverse('users:show_user', args=[request.user.id]))
 	context = {
-		'form': team_form,
+		'team_form': team_form,
 	}
 	return render(request, 'users/modify_profiles.html', context) 

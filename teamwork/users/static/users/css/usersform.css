@@ -6,11 +6,15 @@ body {
 body textarea{
     resize: none;
 }
-.form-users {
+
+#mycontainer{
     width: 100%;
     max-width: 500px;
     padding: 15px;
     margin: 0 auto;
+}
+.form-users {
+    
   }
 
 .item {
@@ -20,9 +24,11 @@ body textarea{
 
 .error-message {
     margin-left: auto;
-    margin-right: auto;
-    font-size: 12px;
-    border: 1px solid;
+    margin-right: 0;
+    font-size: 14px;
+    border: 2px solid;
     /* width: 90%; */
-    border-radius: 2px;
+    border-radius: 5px;
+    text-align:left;
+    padding:0.5%
 }

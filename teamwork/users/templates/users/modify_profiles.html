@@ -9,7 +9,10 @@
 {% block content %}
   <form action="{% url 'users:modify_profiles' %}" method='post'>
     {% csrf_token %}
-	{{ form.as_p}}
-	<button name="submit">Submit</button>
+    <h2>Modify Profiles</h2>
+    <hr>
+    {% include 'users/forms/team_form.html' %}
+  <button name="submit" class="btn btn-primary">Submit</button>
+  <a class="btn btn-outline-primary" href="/">Go Back</a>
   </form>
 {% endblock content %}
