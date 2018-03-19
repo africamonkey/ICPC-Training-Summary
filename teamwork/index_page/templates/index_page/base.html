@@ -1,11 +1,13 @@
-{% load static %}
-<!DOCTYPE html> 
+{% load staticfiles %}<!DOCTYPE html>
 <html>
 
 <head>
   <meta charset="utf-8">
   <title>{% block title %}Test title{% endblock %}</title>
-  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> {% block stylesheet %}{% endblock %}
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> 
+  
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  {% block stylesheet %}{% endblock %}
 </head>
 
 <body>
@@ -54,8 +56,8 @@
       </div>
     </div>
   </nav>
-  <div class="container" style="padding:10%">
-      {% block content %} {% endblock content %}
+  <div class="container main">
+    {% block content %} {% endblock content %}
   </div>
   
 </body>

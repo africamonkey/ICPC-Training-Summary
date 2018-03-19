@@ -2,8 +2,12 @@
 
 {% block content %} 
 
-{% if user.is_authenticated %} 
-<p>Hello, {{ user.username }}, {{ user.userprofile.team_name}} ( {{user.userprofile.team_member_1}}, {{user.userprofile.team_member_2}}, {{user.userprofile.team_member_3}} ). </p>
-{% else %}
-<p>Please login first</p>
-{% endif %} {% endblock content %}
+<div class="section">
+    {% if user.is_authenticated %} 
+    <p>Hello, {{ user.username }}, {{ user.userprofile.team_name}} ( {{user.userprofile.team_member_1}}, {{user.userprofile.team_member_2}}, {{user.userprofile.team_member_3}} ). </p>
+    {% else %}
+    <p>Please login first</p>
+    {% endif %} 
+
+</div>
+{% endblock content %}

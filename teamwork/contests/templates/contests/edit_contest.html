@@ -2,12 +2,26 @@
 
 {% block content %}
 
-<p>Edit Contest:</p>
 
-<form action="{% url 'contests:edit_contest' contest.id %}" method='post'>
-	{% csrf_token %}
-	{{ form.as_p }}
-	<button name="submit">Submit</button>
-</form>
-
+<div class="section">
+	<form action="{% url 'contests:edit_contest' contest.id %}" method='post'>
+		{% csrf_token %}
+		{% for item in form %}
+		<div class="form-group">
+			<lable>{{ item.label }}</lable>
+			{{ item }}
+			<p class="error-message text-danger">
+				{% for error in item.errors %}
+					{{ error }}
+				{% endfor %}
+			</p>
+		</div>
+		
+		{% endfor %}
+		<div style="text-align: center">
+			<button class="btn btn-primary" name="submit">Submit</button>
+			<a class="btn btn-outline-primary" href="{% url 'contests:display_contest' contest.id %}">Go Back</a>
+		</div>
+	</form>
+</div>
 {% endblock content %}
