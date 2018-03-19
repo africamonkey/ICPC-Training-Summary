@@ -12,6 +12,29 @@
 				<a href="{% url 'contests:edit_contest' contest.id %}">edit contest</a>
 			</p>
 		</li>
+		<table border="1">
+			<tr>
+				<th>Team Name</th>
+				{% for i in problem %}
+				<th>{{ i }}</th>
+				{% endfor %}
+				<th>Summary</th>
+			</tr>
+			{% for i in summarylist %}
+			<tr>
+				<th><a href="{% url 'users:show_user' i.head %}">{{ i.tail }}</a></th>
+				{% for j in i.body %}
+				<th>{{ j }}</th>
+				{% endfor %}
+				<th><a href="{% url 'summary:display_status' i.head contest.id %}">View</a></th>
+			</tr>
+			{% empty %}
+			<tr>
+				<th> No Status have been added yet. </th>
+			</tr>
+			{% endfor %}
+		</table>
+		
 	</p>
 
 {% endblock content %}
