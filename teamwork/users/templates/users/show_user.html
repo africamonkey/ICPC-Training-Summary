@@ -1,0 +1,16 @@
+{% extends "users/base.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block title %}Log in{% endblock title %}
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'users/css/login.css' %}">
+{% endblock stylesheet %}
+
+{% block content %}
+  <p>Username: {{ user.username }}</p>
+  <p>Team Name: {{ profile.team_name }}</p>
+  <p>Team Member 1: {{profile.team_member_1}}</p>
+  <p>Team Member 2: {{profile.team_member_2}}</p>
+  <p>Team Member 3: {{profile.team_member_3}}</p>
+  <p>Team Description: {{profile.team_description}}</p>
+{% endblock content %}

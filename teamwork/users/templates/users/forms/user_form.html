@@ -1,0 +1,16 @@
+{% for field in user_form %}
+      <div class="item row">
+        <div class="col-md-6 col-sm-6" align="left">{{ field.label_tag }}</div> 
+        <div class="col-md-6 col-sm-6">{{ field }}
+            {% if field.errors %}
+            <div class="error-message text-danger">
+                {% for error in field.errors %}
+                  {{ error }}
+                {% endfor %}
+            </div>
+          {% endif %}
+
+        </div>
+        
+      </div>
+    {% endfor %}

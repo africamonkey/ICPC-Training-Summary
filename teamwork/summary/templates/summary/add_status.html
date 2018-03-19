@@ -1,0 +1,13 @@
+{% extends "index_page/base.html" %}
+
+{% block content %}
+
+<p>Add a status</p>
+
+<form action="{% url 'summary:add_status' user_handle.id contest.id %}" method='post'>
+	{% csrf_token %}
+	{{ form.as_p }}
+	<button name="submit">add status</button>
+</form>
+
+{% endblock content %}

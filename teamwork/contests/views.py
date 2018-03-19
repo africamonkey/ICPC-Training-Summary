@@ -16,7 +16,7 @@ def add_contest(request):
 		form = ContestForm(request.POST)
 		if form.is_valid():
 			form.save()
-			return HttpResponseRedirect(reverse('index_page:index'))
+			return HttpResponseRedirect(reverse('contests:index'))
 	
 	context = {'form': form}
 	return render(request, 'contests/add_contest.html', context)

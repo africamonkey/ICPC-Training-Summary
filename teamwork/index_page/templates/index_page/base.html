@@ -12,11 +12,24 @@
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container">
       <a class="navbar-brand" href="/">SYSU Training System</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false"
-        aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="mainMenu">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'contests:index' %}">Contest</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="{% url 'summary:index' %}">Status</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="{% url 'index_page:about' %}">About</a>
+          </li>
+        </ul>
         {% if user.is_authenticated %}
         <ul class="navbar-nav ml-auto">
           <li class="nav-item dropdown">
@@ -24,10 +37,10 @@
               {{ user.username }}
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
-              <a class="dropdown-item" href="#">My Account</a>
-              <a class="dropdown-item" href="#">Change Password</a>
+              <a class="dropdown-item" href="{% url 'users:show_user' request.user.id %}">My Team</a>
+              <a class="dropdown-item" href="{% url 'users:change_password' %}">Change Password</a>
+              <a class="dropdown-item" href="{% url 'users:modify_profiles' %}">Modify Profiles</a>
               <div class="dropdown-divider"></div>
-              <!-- <a class="dropdown-item" href="{ url 'logout' }">Log out</a> -->
               <a class="dropdown-item" href="{% url 'users:logout' %}">Log out</a>
             </div>
           </li>
@@ -41,7 +54,7 @@
       </div>
     </div>
   </nav>
-  <div class="container">
+  <div class="container" style="padding:10%">
       {% block content %} {% endblock content %}
   </div>
   

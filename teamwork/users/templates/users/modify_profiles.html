@@ -1,0 +1,18 @@
+{% extends "users/base.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block title %}Modify Profiles{% endblock title %}
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'users/css/login.css' %}">
+{% endblock stylesheet %}
+
+{% block content %}
+  <form action="{% url 'users:modify_profiles' %}" method='post' novalidate>
+    {% csrf_token %}
+    <h2>Modify Profiles</h2>
+    <hr>
+    {% include 'users/forms/team_form.html' %}
+  <button name="submit" class="btn btn-primary">Submit</button>
+  <a class="btn btn-outline-primary" href="/">Go Back</a>
+  </form>
+{% endblock content %}

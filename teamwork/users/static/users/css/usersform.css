@@ -1,0 +1,33 @@
+body {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+body textarea, input{
+    width: 100%;
+    resize: none;
+}
+
+#mycontainer{
+    width: 100%;
+    max-width: 500px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.form-users {
+    
+  }
+
+
+.item {
+    padding: 10px;
+    font-size: 20px;
+}
+
+.error-message {
+    margin-left: auto;
+    margin-right: 0;
+    font-size: 14px;
+    text-align:left;
+    padding:0.5%
+}

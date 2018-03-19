@@ -1,0 +1,15 @@
+{% extends "index_page/base.html" %}
+
+{% block content %}
+
+<p>Contests</p>
+
+<ul>
+	{% for i in contest %}
+		<li>{{i.name}} {{i.source}} - <a href="{% url 'summary:display_status' user_id i.id %}">Summary</a></li>
+	{% empty %}
+		<li> No contests are available yet. </li>
+	{% endfor %}
+</ul>
+
+{% endblock content %}

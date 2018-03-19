@@ -1,9 +1,0 @@
-notes:
-
-1. Package simple_history might not support django 2.0.
-
-Solution: After installing simple_history, please visit "https://github.com/treyhunner/django-simple-history/tree/django-20" and copy remote folder "simple_history" to local folder "venv/lib/python3.6/site-packages/simple_history"
-
-
-2. Package django-widget-tweaks can be installed by:
-pip3 install django-widget-tweaks

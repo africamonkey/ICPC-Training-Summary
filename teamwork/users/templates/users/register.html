@@ -1,85 +1,26 @@
-{% extends "users/base.html" %} 
-{% load staticfiles %} 
-{% block title %}Register{% endblock title %} 
-{% block stylesheet %}
-<link rel="stylesheet" href="{% static 'users/css/register.css' %}"> 
-{% endblock stylesheet %} 
+{% extends "users/base.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
 
+{% block title %}Register{% endblock title %}
 {% block content %}
-  <!-- <div id="signup_div_wrapper">
-    <h1 class="mb-1 text-center">register</h1>
-    <form method="post" class="register" novalidate="novalidate">
-      <label for="reg_sr_firstname">First Name
-        <span class="required">*</span>
-      </label>
-      <input type="text" class="woocommerce-Input woocommerce-Input--text input-text form-control" name="sr_firstname" id="reg_sr_firstname"
-        value="" required="">
-      <div class="invalid-feedback">This field is required</div>
-      </p>
 
-      <p class="woocommerce-FormRow woocommerce-FormRow--last form-row form-row-last">
-        <label for="reg_sr_lastname">Last Name
-          <span class="required">*</span>
-        </label>
-        <input type="text" class="woocommerce-Input woocommerce-Input--text input-text form-control" name="sr_lastname" id="reg_sr_lastname"
-          value="" required="">
-        <div class="invalid-feedback">This field is required</div>
-      </p>
-
-
-      <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-        <label for="reg_email">Email address
-          <span class="required">*</span>
-        </label>
-        <input type="email" class="woocommerce-Input woocommerce-Input--text input-text form-control" name="email" id="reg_email"
-          value="" required="">
-        <div class="invalid-feedback">This field is required</div>
-      </p>
-
-
-      <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-        <label for="reg_password">Password
-          <span class="required">*</span>
-        </label>
-        <input type="password" class="woocommerce-Input woocommerce-Input--text input-text form-control" name="password" id="reg_password"
-          required="">
-        <div class="invalid-feedback">This field is required</div>
-      </p>
-
-      <input type="submit" class="btn btn-brand btn-block btn-lg mb-4 mt-3" style="margin:0;" name="register" value="Sign Up">
-    </form>
-
-  </div> -->
-
-  <div id="signup_div_wrapper">
-    <form method="post" novalidate>
-      {% csrf_token %}
-      {{ user_form.non_field_errors }}
-
-      {% for hidden_field in user_form.hidden_fields %}
-        {{ hidden_field.errors }}
-        {{ hidden_field }}
-      {% endfor %}
-
-      <table border="1">
-        {% for field in user_form.visible_fields %}
-          <tr>
-            <th>{{ field.label_tag }}</th>
-            <td>
-              {{ field.errors }}
-              {{ field }}
-              {{ field.help_text }}
-            </td>
-          </tr>
-        {% endfor %}
-      </table>
-      <button type="submit">Submit</button>
-    </form>
-  </div>
-
-  {{ user_form.as_p }} 
-  {{ team_form.as_p }}
+  <form class="form-users" method="post" action="{% url 'users:register' %}" >
+    {% csrf_token %}
+    <h2>Register</h2>
+    <hr>
+    <div class="form-group">
+      {% include 'users/forms/user_form.html' %}
+      {% include 'users/forms/team_form.html' %}
+    </div>        
+    <button name="submit" class="btn btn-primary">Register</button>
+    <a class="btn btn-outline-primary" href="/">Go Back</a>
+    <input type="hidden" name="next" value="{% url 'index_page:index' %}" />
+  </form>  
+  <p>Have an account? <a href="{% url 'users:login' %}">Click</a> to log in.</p> 
+  </div>   
 
 
 
-  {% endblock content %}
+{% endblock content %}
+
