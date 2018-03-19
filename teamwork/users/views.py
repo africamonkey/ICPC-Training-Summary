@@ -33,12 +33,8 @@ def register(request):
 		team_form = TeamForm(request.POST)
 		if user_form.is_valid() and team_form.is_valid():
 			user = user_form.save()
-			profile = UserProfile.objects.create(user = user)
-			profile.team_name = team_form.cleaned_data["team_name"]
-			profile.team_member_1 = team_form.cleaned_data["team_member_1"]
-			profile.team_member_2 = team_form.cleaned_data["team_member_2"]
-			profile.team_member_3 = team_form.cleaned_data["team_member_3"]
-			profile.team_description = team_form.cleaned_data["team_description"]
+			profile = team_form.save(commit=False)
+			profile.user = user
 			profile.save()
 			return HttpResponseRedirect(reverse('users:login'))
 	context = {
