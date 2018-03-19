@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user
 
@@ -44,6 +45,13 @@ def ctblist_to_strlist(ctb):
     return strlist
 
 
+class templatelist():
+    def __init__(self, head, body, tail, *args, **kwargs):
+        self.head = head
+        self.body = body
+        self.tail = tail
+
+
 def index(request):
     user = get_user(request)
     return HttpResponseRedirect(reverse('summary:home', args=[user.id]))
@@ -66,6 +74,7 @@ def display_status(request, user_id, contest_id):
     return render(request, 'summary/display_status.html', context)
 
 
+@login_required
 def add_status(request, user_id, contest_id):
     cts = get_object_or_404(Contest, pk=contest_id)
     user = get_user(request)
@@ -104,6 +113,7 @@ def add_status(request, user_id, contest_id):
     return render(request, 'summary/add_status.html', context)
 
 
+@login_required
 def edit_status(request, user_id, contest_id):
     cts = get_object_or_404(Contest, pk=contest_id)
     user = get_user(request)

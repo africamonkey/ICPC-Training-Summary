@@ -13,4 +13,26 @@
   <p>Team Member 2: {{profile.team_member_2}}</p>
   <p>Team Member 3: {{profile.team_member_3}}</p>
   <p>Team Description: {{profile.team_description}}</p>
+  <table border="1">
+    <tr>
+      <th>Contest Name</th>
+      {% for i in problem %}
+      <th>{{ i }}</th>
+      {% endfor %}
+      <th>Summary</th>
+    </tr>
+    {% for i in summarylist %}
+    <tr>
+      <th><a href="{% url 'contests:display_contest' i.head %}">{{ i.tail }}</a></th>
+      {% for j in i.body %}
+      <th>{{ j }}</th>
+      {% endfor %}
+      <th><a href="{% url 'summary:display_status' user.id i.head %}">View</a></th>
+    </tr>
+    {% empty %}
+    <tr>
+      <th> No Status have been added yet. </th>
+    </tr>
+    {% endfor %}
+  </table>
 {% endblock content %}
