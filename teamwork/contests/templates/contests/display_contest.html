@@ -24,7 +24,7 @@
 			<tr>
 				<th><a href="{% url 'users:show_user' i.head %}">{{ i.tail }}</a></th>
 				{% for j in i.body %}
-				<th>{{ j }}</th>
+				<th><p style="{{ j.0|yesno:'color:green;,color:red;,color:blue;' }}">{{ j.1 }}</p></th>
 				{% endfor %}
 				<th><a href="{% url 'summary:display_status' i.head contest.id %}">View</a></th>
 			</tr>

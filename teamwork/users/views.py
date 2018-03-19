@@ -75,6 +75,11 @@ def show_user(request, user_id):
 	problem = []
 	for i in range(0, max_problem):
 		problem.append(chr(ord('A') + i))
+	# summarylist is a list of class consisting of three variable: head, body, tail
+	# each item in summarylist stand for one summary of this contest
+	# head is contest.id of the summary
+	# body is a list of contributor string of each problem
+	# tail is contest.name
 	context = {
 		'user': user,
 		'profile': profile,
