@@ -1,3 +1,5 @@
+import math
+
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
 from django.http import HttpResponseRedirect, HttpResponse
@@ -45,8 +47,36 @@ def register(request):
 		'user_form': user_form,
 		'team_form': team_form,
 	}
-	print(team_form)
 	return render(request, 'users/register.html', context)
+
+def list_users(request, page_id = 1):
+	per_page = 20
+	cnt = User.objects.count()
+	tot_page = math.ceil(cnt / per_page)
+	if cnt == 0:
+		tot_page = 1
+	users = User.objects.order_by('id')[(page_id - 1) * per_page : page_id * per_page]
+	user_list = []
+	for user in users:
+		try:
+			profile = UserProfile.objects.get(user = user)
+		except ObjectDoesNotExist:
+			profile = UserProfile.objects.create(user = user)
+		my_profile = {
+			'id': user.id,
+			'username': user.username,
+			'team_name': profile.team_name,
+			'team_member_1': profile.team_member_1,
+			'team_member_2': profile.team_member_2,
+			'team_member_3': profile.team_member_3,
+		}
+		user_list.append(my_profile)
+	context = {
+		'page_id': page_id,
+		'tot_page': tot_page,
+		'user_list': user_list,
+	}
+	return render(request, 'users/list_users.html', context)
 
 def show_user(request, user_id):
 	user = get_object_or_404(User, pk=user_id)
