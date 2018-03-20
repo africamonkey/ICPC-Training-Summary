@@ -11,3 +11,6 @@ class ContestForm(forms.ModelForm):
 			'date': 'Contest Start Time',
 			'num_of_problem': 'Number of Problems',
 		}
+
+	def __init__(self, *args, **kwargs):
+		super(ContestForm, self).__init__(*args, **kwargs)

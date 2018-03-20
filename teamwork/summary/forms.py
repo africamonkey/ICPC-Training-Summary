@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import Textarea
+from markdownx.fields import MarkdownxFormField
 
 from django.contrib.auth.models import User
 
@@ -13,16 +13,13 @@ class StatusForm(forms.ModelForm):
     class Meta:
         model = Status
         fields = ['summary']
-        widgets = {
-            'summary': Textarea(attrs={'cols': 50, 'rows': 5})
-        }
         labels = {
             'summary': 'Summary'
         }
 
     def __init__(self, contest_id, user_id, *args, **kwargs):
         super(StatusForm, self).__init__(*args, **kwargs)
-        self.fields['summary'] = forms.CharField(required=True)
+        self.fields['summary'] = MarkdownxFormField(required=True)
         cts = Contest.objects.get(id=contest_id)
         user = User.objects.get(id=user_id)
         STATUS_OF_AC = [
