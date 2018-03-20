@@ -1,3 +1,5 @@
+import math
+
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -7,9 +9,18 @@ from .forms import ContestForm
 from summary.models import Status
 from summary.views import int_to_strlist, ctblist_to_strlist, templatelist
 
-def index(request):
-	contest = Contest.objects.order_by('id')
-	context = {'contest': contest}
+def index(request, page_id = 1):
+	per_page = 20
+	cnt = Contest.objects.count()
+	tot_page = math.ceil(cnt / per_page)
+	if cnt == 0:
+		tot_page = 1
+	contest = Contest.objects.order_by('-id')[(page_id - 1) * per_page : page_id * per_page]
+	context = {
+		'page_id': page_id,
+		'tot_page': tot_page,
+		'contest': contest,
+	}
 	return render(request, 'contests/index.html', context)
 
 def add_contest(request):
