@@ -6,6 +6,9 @@
 
 <div class="section">
 	<h1>Contests</h1>
+	<div>
+		<a  href="{% url 'contests:add_contest' %}" class="btn btn-primary">添加比赛</a>
+	</div>
 	{% for i in contest %}
 	<hr>
 	<div class="contest_display">
@@ -13,11 +16,11 @@
 		<div><p>Source: {{ i.source }}</p><p>Start Time: {{ i.date }}</p></div>
 	</div>
 	{% empty %}
-		<p>No contests have been added yet. </p>
+	<hr>
+	<div class="contest_display">
+		<h2>No contests have been added yet. </h2>
+	</div>
 	{% endfor %}
 	
-	<div style="text-align: right">
-		<a  href="{% url 'contests:add_contest' %}" class="btn btn-primary">添加比赛</a>
-	</div>
 </div>
 {% endblock content %}
