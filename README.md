@@ -105,6 +105,14 @@ status 显示界面
 
 /users/profile/user_id/ 用户详情界面
 
+10. 在 status 显示页面加上 View History 按钮（放在 Edit Summary 按钮旁边，login required），查询这个 Status 的历史修改记录。
+
+我们还需要写一个查询 Status 历史修改记录的页面。
+
+11. 在 User Profile 显示页面加上 View History 按钮（login required），查询 Team_description 的历史修改记录。
+
+我们还需要写一个查询 Team_description 历史修改记录的页面。
+
 ## 开发背景
 
 中山大学 ACM 集训队目前正在使用原有的 ACM 训练总结系统（ http://www.sysuteam.com ）。这个系统能帮助教练了解集训队的做题情况。然而，这个系统有一些不足之处，例如每支队伍没有自己的主页，队伍不能在上面写总结、发题解。
