@@ -67,7 +67,11 @@ def display_contest(request, contest_id):
 			elif ac_s[j] == '2':
 				ck = False
 			status.append([ck, s])
-		summarylist.append(templatelist(head=i.owner.user.id, body=status, tail=i.owner.team_name))
+		if contest.contest_type == 'Onsite':
+			onsite_tag = 1
+		else:
+			onsite_tag = 0
+		summarylist.append(templatelist(head=i.owner.user.id, body=status, tail=i.owner.team_name, date=contest.date, onsite_tag=onsite_tag))
 
 	# summarylist is a list of class consisting of three variable: head, body, tail
 	# each item in summarylist stand for one summary of this contest
