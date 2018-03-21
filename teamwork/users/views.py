@@ -24,7 +24,7 @@ def login_view(request):
 		form = AuthenticationForm(request, data = request.POST)
 		if form.is_valid():
 			login(request, form.get_user())
-			return HttpResponseRedirect(reverse('index_page:index'))
+			return HttpResponseRedirect(request.POST.get('next', '/') or reverse('index_page:index'))
 	context = {'form': form}
 	return render(request, 'users/login.html', context)
 
