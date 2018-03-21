@@ -18,7 +18,7 @@
         {{ form.password | add_class:"form-control" | attr:"placeholder:Password"}}
     <button class="btn btn-primary " type="submit" name="submit">登录</button>
     <a href="{% url 'users:register' %}" class="btn btn-outline-primary">注册</a>
-    <input  type="hidden" name="next" value="{% url 'index_page:index' %}" />
+    <input  type="hidden" name="next" value="{{ next }}" />
   </form>
   {% endif %}
 {% endblock content %}

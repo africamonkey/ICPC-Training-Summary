@@ -1,3 +1,5 @@
+import math
+
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -159,5 +161,57 @@ def edit_status(request, user_id, contest_id):
                 args=[user_id, contest_id]
             ))
 
+    context = {'user_handle': user, 'contest': cts, 'form': form}
+    return render(request, 'summary/edit_status.html', context)
+
+@login_required
+def histories(request, user_id, contest_id, page_id = 1):
+    per_page = 20
+    cts = get_object_or_404(Contest, pk=contest_id)
+    user = get_user(request)
+    if user.id != user_id:
+        return HttpResponseRedirect(reverse('summary:index'))
+    try:
+        status = Status.objects.get(contest=cts, owner=user.userprofile)
+    except ObjectDoesNotExist:
+        return HttpResponseRedirect(reverse('summary:add_status', args=[user_id, contest_id]))
+    histories = status.history.all()
+    cnt = histories.count()
+    tot_page = math.ceil(cnt / per_page)
+    if cnt == 0:
+        tot_page = 1
+    histories = histories.order_by('-history_date')[(page_id - 1) * per_page : page_id * per_page]
+    context = {
+        'page_id': page_id,
+        'tot_page': tot_page,
+        'histories': histories,
+    }
+    return render(request, 'summary/histories.html', context)
+
+@login_required
+def view_history(request, user_id, contest_id, history_id):
+    cts = get_object_or_404(Contest, pk=contest_id)
+    user = get_user(request)
+    if user.id != user_id:
+        return HttpResponseRedirect(reverse('summary:index'))
+    try:
+        status = Status.objects.get(contest=cts, owner=user.userprofile)
+    except ObjectDoesNotExist:
+        return HttpResponseRedirect(reverse('summary:add_status', args=[user_id, contest_id]))
+    histories = status.history.all()
+    history = histories.filter(history_id=history_id).values()
+    if history.count() == 0:
+        return HttpResponseRedirect(reverse('summary:index'))
+    else:
+        history = history[0]
+    print(history)
+    ac_s = int_to_strlist(history['ac_status'], 4, cts.num_of_problem)
+    ctb = ctblist_to_strlist(int_to_strlist(history['contributor'], 8, cts.num_of_problem))
+    initial_value = {}
+    initial_value['summary'] = history['summary']
+    for i in range(0, cts.num_of_problem):
+        initial_value['p' + str(i)] = ac_s[i]
+        initial_value['c' + str(i)] = ctb[i]
+    form = StatusForm(contest_id=contest_id, user_id=user_id, data=initial_value)
     context = {'user_handle': user, 'contest': cts, 'form': form}
     return render(request, 'summary/edit_status.html', context)

@@ -1,5 +1,5 @@
 from django.urls import path
-from django.contrib.auth import views as auth_views
+from django.contrib.auth.views import login as auth_login
 
 from . import views
 
@@ -8,7 +8,7 @@ app_name = 'users'
 urlpatterns = [
 	path('', views.list_users, name='list_users'),
 	path('page/<int:page_id>/', views.list_users, name='list_users2'),
-	path('login/', views.login_view, name='login'),
+	path('login/', auth_login, {'template_name': 'users/login.html'}, name='login'),
 	path('logout/', views.logout_view, name='logout'),
 	path('register/', views.register, name='register'),
 	path('profile/<int:user_id>/', views.show_user, name='show_user'),
