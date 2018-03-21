@@ -20,6 +20,7 @@ class ContestForm(forms.ModelForm):
 			'source': 'Contest Source',
 			'date': 'Contest Start Time',
 			'num_of_problem': 'Number of Problems',
+			'contest_link': 'Link',
 		}
 
 	def __init__(self, *args, **kwargs):

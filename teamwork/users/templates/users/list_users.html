@@ -5,15 +5,51 @@
 {% block content %}
 
 <p>
-{{ page_id }}
+{{ page_id }} 
 </p>
 
 <p>
 {{ tot_page }}
 </p>
 
-<p>
-{{ user_list }}
-</p>
+
+<div class="section">
+        <h4>Users</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Team Name</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Member 1</th>
+                    <th scope="col">Member 2</th>
+                    <th scope="col">Member 3</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if user_list %}
+                <tr>
+                    
+                </tr>
+                {% for item in user_list %}
+                <tr>
+                    <td>{{ item.id }}</th>
+                    <td><a href="{% url 'users:show_user' item.id %}">{{ item.team_name }}</a></td>
+                    <td>{{ item.username }}</td>
+                    <td>{{ item.team_member_1 }}</td>
+                    <td>{{ item.team_member_2 }}</td>
+                    <td>{{ item.team_member_3 }}</td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <th> No Users have registered. </th>
+                </tr>
+                {% endif %}
+            </tbody>
+                    
+        </table>
+    </div>
 
 {% endblock content %}
+
