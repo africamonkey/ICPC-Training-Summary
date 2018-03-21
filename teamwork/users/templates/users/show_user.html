@@ -45,7 +45,7 @@
       {% for j in i.body %}
       <th>{{ j }}</th>
       {% endfor %}
-      <th><a href="{% url 'summary:display_status' user.id i.head %}">View</a></th>
+      <th><a href="{% url 'summary:display_status' user_c.id i.head %}">View</a></th>
     </tbody>
     {% empty %}
     <tbody>

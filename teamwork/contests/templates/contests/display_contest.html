@@ -33,10 +33,12 @@
 		<dd><a href="{{ contest.contest_link }}">Contest Link</a></dd>
 	</dl> -->
 
+	{% if user.id is not None %}
 	<div style="text-align:right">
 		<a class="btn btn-sm btn-primary" href="{% url 'summary:add_status' user.id contest.id %}">Add/Edit Summary</a>
 		<a class="btn btn-sm btn-primary" href="{% url 'contests:edit_contest' contest.id %}">Edit Contest</a>
 	</div>
+	{% endif %}
 </div>
 
 <div class="section">

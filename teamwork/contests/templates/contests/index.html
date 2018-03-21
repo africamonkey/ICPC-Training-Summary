@@ -7,7 +7,9 @@
 <div class="section">
 	<h1>Contests</h1>
 	<div>
+		{% if user.id is not None %}
 		<a  href="{% url 'contests:add_contest' %}" class="btn btn-primary">Add Contest</a>
+		{% endif %}
 	</div>
 
 	<br>

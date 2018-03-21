@@ -118,7 +118,7 @@ def show_user(request, user_id):
 	# body is a list of contributor string of each problem
 	# tail is contest.name
 	context = {
-		'user': user,
+		'user_c': user,
 		'profile': profile,
 		'summarylist': summarylist,
 		'problem': problem,
