@@ -1,16 +1,32 @@
 {% extends "index_page/base.html" %}
 
+{% load widget_tweaks %}
+
 {% block content %}
 
-<p>Add a contest</p>
-<form action="{% url 'contests:add_contest' %}" method='post'>
-	{% csrf_token %}
-	{{ form.as_p }}
-	<button name="submit">add contest</button>
-</form>
+<div class="section">
+	<center>
+		<h1>Add Contest</h1>
+	</center>
+	<hr>
+	<form action="{% url 'contests:add_contest' %}" method='post' class="myforms">
+		{% csrf_token %}
+		
+		{% for field　in form %}
+			<div class="form-group">
+				<span>{{ field.label }}</span>
+				{{ field | add_class:"form-control"}}
+			</div>
+		{% endfor %}
+		<center>
+			<button class="btn btn-primary" name="submit">Submit</button>
+		</center>
+	</form>
+	
+	{{ form.media }}
+	<script type="text/javascript">
+		$('.datepicker').datepicker();
+	</script>
+</div>
 
-{{ form.media }}
-<script type="text/javascript">
-    $('.datepicker').datepicker();
-</script>
 {% endblock content %}

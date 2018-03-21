@@ -7,20 +7,35 @@
 <div class="section">
 	<h1>Contests</h1>
 	<div>
-		<a  href="{% url 'contests:add_contest' %}" class="btn btn-primary">添加比赛</a>
+		<a  href="{% url 'contests:add_contest' %}" class="btn btn-primary">Add Contest</a>
 	</div>
-	{% for i in contest %}
-	<hr>
+
+	<br>
+	{% if contest %}
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">Contest Name</th>
+				<th scope="col">Time</th>
+				<th scope="col">Source</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for i in contest %}
+			<tr>
+				<td><a href="{% url 'contests:display_contest' i.id %}">{{ i.name }} </a></td>
+				<td>{{ i.date | date:"Y-m-d" }}</td>
+				<td>{{ i.source }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	
+	{% else %}
 	<div class="contest_display">
-		<h2><a href="{% url 'contests:display_contest' i.id %}">{{ i.name }}</a></h2>
-		<div><p>Source: {{ i.source }}</p><p>Start Time: {{ i.date|date:"Y-m-d" }}</p></div>
+		<h4>No contests have been added yet. </h4>
 	</div>
-	{% empty %}
-	<hr>
-	<div class="contest_display">
-		<h2>No contests have been added yet. </h2>
-	</div>
-	{% endfor %}
+	{% endif %}
 	
 </div>
 {% endblock content %}

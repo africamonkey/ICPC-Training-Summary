@@ -1,22 +1,25 @@
 {% extends "index_page/base.html" %}
 
+{% load widget_tweaks %}
+
 {% block content %}
 
 
 <div class="section">
-	<form action="{% url 'contests:edit_contest' contest.id %}" method='post'>
+	<form action="{% url 'contests:edit_contest' contest.id %}" method='post' class="myform">
 		{% csrf_token %}
 		{% for item in form %}
 		<div class="form-group">
-			<lable>{{ item.label }}</lable>
-			{{ item }}
+			<span>
+				{{ item.label }}
+			</span>
+			{{ item | add_class:"form-control"}}
 			<p class="error-message text-danger">
 				{% for error in item.errors %}
 					{{ error }}
 				{% endfor %}
 			</p>
 		</div>
-		
 		{% endfor %}
 		<div style="text-align: center">
 			<button class="btn btn-primary" name="submit">Submit</button>

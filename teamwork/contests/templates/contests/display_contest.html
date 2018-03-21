@@ -2,14 +2,40 @@
 
 {% block content %}
 
-
 <div class="section">
 	<h2>{{ contest.name }}</h2>
-	<p>Source: {{ contest.source }}</p>
-	<p>Start Time: {{ contest.date|date:"Y-m-d" }}</p>
-	<p>Number of problems: {{ contest.num_of_problem }}</p>
+	<table cellpadding="10">
+		<tr>
+			<th>Source</th>
+			<th>{{ contest.source }}</th>
+		</tr>
+		<tr>
+			<th>Date</th>
+			<th>{{ contest.date | date:"Y-m-d"  }}</th>
+		</tr>
+		<tr>
+			<th>Problems</th>
+			<th>{{ contest.num_of_problem }}</th>
+		</tr>
+		<tr>
+			<th>Link</th>
+			<th><a href="{{ contest.contest_link }}">{{ contest.contest_link }}</a></th>
+		</tr>
+	</table>
+	<!-- <dl>
+		<dt>Source:</dt>
+		<dd>{{ contest.source }}</dd>
+		<dt>Start Time:</dt>
+		<dd>{{ contest.date | date:"Y-m-d" }}</dd>
+		<dt>Number of Problems:</dt>
+		<dd>{{ contest.num_of_problem }}</dd>
+		<dt>Link:</dt>
+		<dd><a href="{{ contest.contest_link }}">Contest Link</a></dd>
+	</dl> -->
+
 	<div style="text-align:right">
-		<a class="btn btn-sm btn-out-primary" href="{% url 'contests:edit_contest' contest.id %}">Edit Contest</a>
+		<a class="btn btn-sm btn-primary" href="">Add Summary</a>
+		<a class="btn btn-sm btn-primary" href="{% url 'contests:edit_contest' contest.id %}">Edit Contest</a>
 	</div>
 </div>
 
@@ -30,7 +56,11 @@
 			<tr>
 				<th><a href="{% url 'users:show_user' i.head %}">{{ i.tail }}</a></th>
 				{% for j in i.body %}
-				<th><p style="{{ j.0|yesno:'color:green;,color:red;,color:blue;' }}">{{ j.1 }}</p></th>
+				<th>
+					<p style="{{ j.0|yesno:'color:green;,color:red;,color:blue;' }}">
+						{{ j.1 }}
+					</p>
+				</th>
 				{% endfor %}
 				<th><a href="{% url 'summary:display_status' i.head contest.id %}">View</a></th>
 			</tr>
