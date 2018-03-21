@@ -1,5 +1,6 @@
 import math
 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -23,6 +24,7 @@ def index(request, page_id = 1):
 	}
 	return render(request, 'contests/index.html', context)
 
+@login_required
 def add_contest(request):
 	if request.method != 'POST':
 		form = ContestForm()
@@ -56,11 +58,11 @@ def display_contest(request, contest_id):
 					tmp = i.owner.team_member_2
 				elif int(k) == 4:
 					tmp = i.owner.team_member_3
-				s = s + tmp + ','
+				s = s + tmp + '<br />'
 			if s == '':
 				s = 'X'
 			else:
-				s = s[:-1]
+				s = s[:-6]
 			ck = None
 			if ac_s[j] == '1':
 				ck = True
@@ -83,6 +85,7 @@ def display_contest(request, contest_id):
 	context = {'contest': contest, 'summarylist': summarylist, 'problem': problem}
 	return render(request, 'contests/display_contest.html', context)
 
+@login_required
 def edit_contest(request, contest_id):
 	contest = get_object_or_404(Contest, pk=contest_id)
 	if request.method != 'POST':

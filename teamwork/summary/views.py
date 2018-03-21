@@ -58,6 +58,7 @@ class templatelist():
         self.onsite_tag = onsite_tag
 
 
+@login_required
 def index(request):
     user = get_user(request)
     return HttpResponseRedirect(reverse('summary:home', args=[user.id]))

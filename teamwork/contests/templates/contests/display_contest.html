@@ -19,7 +19,7 @@
 		</tr>
 		<tr>
 			<th>Link</th>
-			<th><a href="{{ contest.contest_link }}">{{ contest.contest_link }}</a></th>
+			<th>{{ contest.contest_link|urlize }}</th>
 		</tr>
 	</table>
 	<!-- <dl>
@@ -58,7 +58,7 @@
 				{% for j in i.body %}
 				<th>
 					<p style="{{ j.0|yesno:'color:green;,color:red;,color:blue;' }}">
-						{{ j.1 }}
+						{{ j.1|safe }}
 					</p>
 				</th>
 				{% endfor %}

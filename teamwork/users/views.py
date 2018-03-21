@@ -28,6 +28,7 @@ def login_view(request):
 	context = {'form': form}
 	return render(request, 'users/login.html', context)
 
+@login_required
 def logout_view(request):
 	logout(request)
 	return HttpResponseRedirect(reverse('index_page:index'))
