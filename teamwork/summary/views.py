@@ -48,10 +48,12 @@ def ctblist_to_strlist(ctb):
 
 
 class templatelist():
-    def __init__(self, head, body, tail, *args, **kwargs):
+    def __init__(self, head, body, tail, date, onsite_tag, *args, **kwargs):
         self.head = head
         self.body = body
         self.tail = tail
+        self.date = date
+        self.onsite_tag = onsite_tag
 
 
 def index(request):

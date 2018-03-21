@@ -83,7 +83,7 @@ def list_users(request, page_id = 1):
 def show_user(request, user_id):
 	user = get_object_or_404(User, pk=user_id)
 	profile = get_object_or_404(UserProfile, user=user)
-	summary = Status.objects.filter(owner=profile)
+	summary = Status.objects.filter(owner=profile).order_by('-contest')
 	summarylist = []
 	max_problem = 0
 	for i in summary:
@@ -103,7 +103,11 @@ def show_user(request, user_id):
 			status.append(s)
 		while len(status) < max_problem:
 			status.append('')
-		summarylist.append(templatelist(head=i.contest.id, body=status, tail=i.contest.name))
+		if i.contest.contest_type == 'Onsite':
+			onsite_tag = 1
+		else:
+			onsite_tag = 0
+		summarylist.append(templatelist(head=i.contest.id, body=status, tail=i.contest.name, date=i.contest.date, onsite_tag=onsite_tag))
 	problem = []
 	for i in range(0, max_problem):
 		problem.append(chr(ord('A') + i))

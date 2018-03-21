@@ -17,6 +17,7 @@
   <table class="table">
     <thead>
       <th>Contest Name</th>
+	  <th>Contest Date</th>
       {% for i in problem %}
       <th>{{ i }}</th>
       {% endfor %}
@@ -24,7 +25,17 @@
     </thead>
     {% for i in summarylist %}
     <tbody>
-      <th><a href="{% url 'contests:display_contest' i.head %}">{{ i.tail }}</a></th>
+      <th>
+      {% if i.onsite_tag %}
+	    <a data-toggle="tooltip" title="Onsite Contest">
+	    <i class="icon-lightbulb icon-large"></i>
+		</a>
+      {% endif %}
+	  <a href="{% url 'contests:display_contest' i.head %}">
+      {{ i.tail }}
+	  </a>
+	  </th>
+	  <th>{{ i.date|date:"Y-m-d" }}</th>
       {% for j in i.body %}
       <th>{{ j }}</th>
       {% endfor %}
