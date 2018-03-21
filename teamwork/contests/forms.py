@@ -24,3 +24,9 @@ class ContestForm(forms.ModelForm):
 
 	def __init__(self, *args, **kwargs):
 		super(ContestForm, self).__init__(*args, **kwargs)
+		self.fields['date'] = forms.DateField(input_formats=['%Y/%m/%d'], widget=DatePicker(
+			options={
+				"format": "yyyy/mm/dd",
+				"autoclose": True
+			}
+		))
