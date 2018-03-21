@@ -42,6 +42,8 @@ INSTALLED_APPS = [
 	'simple_history',
     'widget_tweaks', 
     'markdownx',
+    'bootstrap_datepicker',
+
 	'contests',
 	'users',
 	'index_page',

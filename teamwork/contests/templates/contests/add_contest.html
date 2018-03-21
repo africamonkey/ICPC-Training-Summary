@@ -3,12 +3,14 @@
 {% block content %}
 
 <p>Add a contest</p>
-
 <form action="{% url 'contests:add_contest' %}" method='post'>
 	{% csrf_token %}
 	{{ form.as_p }}
-	{{ form.media }}
 	<button name="submit">add contest</button>
 </form>
 
+{{ form.media }}
+<script type="text/javascript">
+    $('.datepicker').datepicker();
+</script>
 {% endblock content %}
