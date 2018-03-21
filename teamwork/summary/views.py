@@ -204,7 +204,6 @@ def view_history(request, user_id, contest_id, history_id):
         return HttpResponseRedirect(reverse('summary:index'))
     else:
         history = history[0]
-    print(history)
     ac_s = int_to_strlist(history['ac_status'], 4, cts.num_of_problem)
     ctb = ctblist_to_strlist(int_to_strlist(history['contributor'], 8, cts.num_of_problem))
     initial_value = {}

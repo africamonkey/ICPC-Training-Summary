@@ -169,3 +169,41 @@ def modify_profiles(request):
 		'team_form': team_form,
 	}
 	return render(request, 'users/modify_profiles.html', context) 
+
+@login_required
+def histories(request, page_id = 1):
+	per_page = 20
+	try:
+		profile = UserProfile.objects.get(user = request.user)
+	except ObjectDoesNotExist:
+		return HttpResponseRedirect(reverse('users:modify_profiles'))
+	histories = profile.history.all()
+	cnt = histories.count()
+	tot_page = math.ceil(cnt / per_page)
+	if cnt == 0:
+		tot_page = 1
+	histories = histories.order_by('-history_date')[(page_id - 1) * per_page : page_id * per_page]
+	context = {
+		'page_id': page_id,
+		'tot_page': tot_page,
+		'histories': histories,
+	}
+	return render(request, 'users/histories.html', context)
+
+@login_required
+def view_history(request, history_id):
+	try:
+		profile = UserProfile.objects.get(user = request.user)
+	except ObjectDoesNotExist:
+		return HttpResponseRedirect(reverse('users:modify_profiles'))
+	histories = profile.history.all()
+	history = histories.filter(history_id=history_id).values()
+	if history.count() == 0:
+		return HttpResponseRedirect(reverse('users:modify_profiles'))
+	else:
+		history = history[0]
+	team_form = TeamForm(data = history)
+	context = {
+		'team_form': team_form,
+	}
+	return render(request, 'users/modify_profiles.html', context)
