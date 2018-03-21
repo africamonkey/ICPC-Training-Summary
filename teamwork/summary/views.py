@@ -74,14 +74,52 @@ def display_status(request, user_id, contest_id):
     cts = get_object_or_404(Contest, pk=contest_id)
     user = get_object_or_404(User, pk=user_id)
     try:
-        status = Status.objects.get(contest=cts, owner=user.userprofile)
+        summary = Status.objects.get(contest=cts, owner=user.userprofile)
     except ObjectDoesNotExist:
         return HttpResponseRedirect(reverse('summary:add_status', args=[user_id, contest_id]))
+    problem = []
+    for i in range(0, cts.num_of_problem):
+        problem.append(chr(ord('A') + i))
+    status = []
+    ac_s = int_to_strlist(summary.ac_status, 4, cts.num_of_problem)
+    ctb = ctblist_to_strlist(int_to_strlist(summary.contributor, 8, cts.num_of_problem))
+    for j in range(0, cts.num_of_problem):
+        s = ''
+        for k in ctb[j]:
+            tmp = ''
+            if int(k) == 1:
+                tmp = summary.owner.team_member_1
+            elif int(k) == 2:
+                tmp = summary.owner.team_member_2
+            elif int(k) == 4:
+                tmp = summary.owner.team_member_3
+            s = s + tmp + '<br />'
+        if s == '':
+            s = 'X'
+        else:
+            s = s[:-6]
+        ck = None
+        if ac_s[j] == '1':
+            ck = True
+        elif ac_s[j] == '2':
+            ck = False
+        status.append([ck, s])
+    if cts.contest_type == 'Onsite':
+        onsite_tag = 1
+    else:
+        onsite_tag = 0
+    summarylist = templatelist(
+        head=summary.owner.user.id,
+        body=status,
+        tail=summary.owner.team_name,
+        date=cts.date,
+        onsite_tag=onsite_tag,
+    )
     context = {
-        'status': status,
-        'contest_id': contest_id,
-        'user_id': user_id,
-        'summary_markdown': markdownify(status.summary)
+        'status': summary,
+        'summary_markdown': markdownify(summary.summary),
+        'summary': summarylist,
+        'problem': problem,
     }
     return render(request, 'summary/display_status.html', context)
 
@@ -90,7 +128,7 @@ def display_status(request, user_id, contest_id):
 def add_status(request, user_id, contest_id):
     cts = get_object_or_404(Contest, pk=contest_id)
     user = get_user(request)
-    
+
     try:
         status = Status.objects.get(contest=cts, owner=user.userprofile)
     except ObjectDoesNotExist:
@@ -132,7 +170,6 @@ def add_status(request, user_id, contest_id):
     return HttpResponseRedirect(reverse('summary:edit_status', args=[user_id, contest_id]))
 
 
-
 @login_required
 def edit_status(request, user_id, contest_id):
     cts = get_object_or_404(Contest, pk=contest_id)
@@ -172,8 +209,9 @@ def edit_status(request, user_id, contest_id):
     context = {'user_handle': user, 'contest': cts, 'form': form, 'tag': "Edit"}
     return render(request, 'summary/edit_status.html', context)
 
+
 @login_required
-def histories(request, user_id, contest_id, page_id = 1):
+def histories(request, user_id, contest_id, page_id=1):
     per_page = 20
     cts = get_object_or_404(Contest, pk=contest_id)
     user = get_user(request)
@@ -188,13 +226,16 @@ def histories(request, user_id, contest_id, page_id = 1):
     tot_page = math.ceil(cnt / per_page)
     if cnt == 0:
         tot_page = 1
-    histories = histories.order_by('-history_date')[(page_id - 1) * per_page : page_id * per_page]
+    histories = histories.order_by('-history_date')[(page_id - 1) * per_page: page_id * per_page]
     context = {
+        'status_owner_id': user_id,
+        'contest_id': contest_id,
         'page_id': page_id,
         'tot_page': tot_page,
         'histories': histories,
     }
     return render(request, 'summary/histories.html', context)
+
 
 @login_required
 def view_history(request, user_id, contest_id, history_id):

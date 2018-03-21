@@ -2,13 +2,45 @@
 
 {% block content %}
 
-<p>{{page_id}}</p>
+<!--<p>{{page_id}}</p>
 
-<p>{{tot_page}}</p>
+<p>{{tot_page}}</p>-->
 
-{% for history in histories %}
-<p>{{ history.history_id }}</p>
-<p>{{ history.history_date }}</p>
-{% endfor %}
+<div class="section">
+        <h4>Histories</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Last Modified</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for history in histories %}
+                <tr>
+                    <td><a href="{% url 'summary:view_history' status_owner_id contest_id history.history_id %}">{{ history.history_id }}</a></th>
+                    <td>{{ history.history_date|date:"Y-m-d H:i:s" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <th> No histories have recorded. </th>
+                </tr>
+                {% endfor %}
+            </tbody>
+                    
+        </table>
+        <div class="d-flex justify-content-between">
+            <div>
+                {% if page_id > 1 %}
+                <a class="btn btn-sm btn-primary" href="{% url 'summary:histories2' status_owner_id contest_id page_id|add:"-1" %}">Previous</a>
+                {% endif %}
+            </div>
+            <div>
+                {% if page_id < tot_page %}
+                <a class="btn btn-sm btn-primary" href="{% url 'summary:histories2' status_owner_id contest_id page_id|add:"1" %}">Next</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 
 {% endblock content %}

@@ -2,19 +2,66 @@
 
 {% block content %}
 
-	<p>Contest Detail</p>
-		<li>
-			<p> {{ status.contest.name }} </p>
-			<p> {{ status.contest.source }} </p>
-			<p> {{ status.contest.date }} </p>
-            <p> {{ status.contest.num_of_problem }} </p>
-            <br />
-            <p> {{ summary_markdown|safe }}</p>
-			<p> {{ status.ac_status }}</p>
-			<p> {{ status.contributor }}</p>
+<div class="section">
+	<h2><a href="{% url 'contests:display_contest' status.contest.id %}">{{ status.contest.name }}</a></h2>
+	<table cellpadding="10">
+		<tr>
+			<th>Source</th>
+			<th>{{ status.contest.source }}</th>
+		</tr>
+		<tr>
+			<th>Date</th>
+			<th>{{ status.contest.date|date:"Y-m-d"  }}</th>
+		</tr>
+		<tr>
+			<th>Problems</th>
+			<th>{{ status.contest.num_of_problem }}</th>
+		</tr>
+		<tr>
+			<th>Link</th>
+			<th>{{ status.contest.contest_link|urlize }}</th>
+		</tr>
+	</table>
 
-			<a href="{% url 'summary:edit_status' user_id contest_id %}">Edit Summary</a></li>
-		</li>
-	</p>
+	{% if user.id == status.owner.user.id %}
+	<div style="text-align:right">
+		<a class="btn btn-sm btn-primary" href="{% url 'summary:add_status' status.owner.user.id status.contest.id %}">Edit Summary</a>
+	</div>
+	{% endif %}
+</div>
+
+<div class="section">
+	<h4>Contest Result</h4>
+	<table class="table" id="result_table">
+		<thead>
+			<tr>
+				{% for i in problem %}
+				<th scope="col">{{ i }}</th>
+				{% endfor %}
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				{% for j in summary.body %}
+				<th>
+					<p style="{{ j.0|yesno:'color:green;,color:red;,color:blue;' }}">
+						{{ j.1|safe }}
+					</p>
+				</th>
+				{% endfor %}
+			</tr>
+		</tbody>
+			
+	</table>
+</div>
+
+<div class="section">
+	<h4>Summary</h4>
+	<hr>
+	{{ summary_markdown|safe }}
+</div>
+
 
 {% endblock content %}
+
+
