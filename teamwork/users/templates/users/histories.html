@@ -1,0 +1,14 @@
+{% extends "index_page/base.html" %}
+
+{% block content %}
+
+<p>{{page_id}}</p>
+
+<p>{{tot_page}}</p>
+
+{% for history in histories %}
+<p>{{ history.history_id }}</p>
+<p>{{ history.history_date }}</p>
+{% endfor %}
+
+{% endblock content %}
