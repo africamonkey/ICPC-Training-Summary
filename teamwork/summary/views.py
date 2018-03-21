@@ -89,39 +89,47 @@ def display_status(request, user_id, contest_id):
 def add_status(request, user_id, contest_id):
     cts = get_object_or_404(Contest, pk=contest_id)
     user = get_user(request)
+    
     try:
-        user.userprofile
+        status = Status.objects.get(contest=cts, owner=user.userprofile)
     except ObjectDoesNotExist:
-        return HttpResponseRedirect(reverse('users:modify_profiles'))
-    if user.id != user_id:
-        return HttpResponseRedirect(reverse('summary:index'))
-    if request.method != 'POST':
-        form = StatusForm(contest_id=contest_id, user_id=user_id)
-    else:
-        form = StatusForm(contest_id=contest_id, user_id=user_id, data=request.POST)
-        if form.is_valid():
-            # convert string from fields to ac_status and contributor
-            ac_s = []
-            ctb = []
-            for key, value in form.cleaned_data.items():
-                if key[0] == 'p':
-                    ac_s.append(value)
-                elif key[0] == 'c':
-                    ctb.append(str(strlist_to_int(value, 1)))
-            # complete the status
-            status = form.save(commit=False)
-            status.owner = user.userprofile
-            status.contest = cts
-            status.ac_status = strlist_to_int(ac_s, 4)
-            status.contributor = strlist_to_int(ctb, 8)
-            status.save()
-            return HttpResponseRedirect(reverse(
-                'summary:display_status',
-                args=[user_id, contest_id]
-            ))
+        # If the summary does not exist
+        try:
+            user.userprofile
+        except ObjectDoesNotExist:
+            return HttpResponseRedirect(reverse('users:modify_profiles'))
+        if user.id != user_id:
+            return HttpResponseRedirect(reverse('summary:index'))
+        if request.method != 'POST':
+            form = StatusForm(contest_id=contest_id, user_id=user_id)
+        else:
+            form = StatusForm(contest_id=contest_id, user_id=user_id, data=request.POST)
+            if form.is_valid():
+                # convert string from fields to ac_status and contributor
+                ac_s = []
+                ctb = []
+                for key, value in form.cleaned_data.items():
+                    if key[0] == 'p':
+                        ac_s.append(value)
+                    elif key[0] == 'c':
+                        ctb.append(str(strlist_to_int(value, 1)))
+                # complete the status
+                status = form.save(commit=False)
+                status.owner = user.userprofile
+                status.contest = cts
+                status.ac_status = strlist_to_int(ac_s, 4)
+                status.contributor = strlist_to_int(ctb, 8)
+                status.save()
+                return HttpResponseRedirect(reverse(
+                    'summary:display_status',
+                    args=[user_id, contest_id]
+                ))
 
-    context = {'user_handle': user, 'contest': cts, 'form': form}
-    return render(request, 'summary/add_status.html', context)
+        context = {'user_handle': user, 'contest': cts, 'form': form, 'tag': "Add"}
+        return render(request, 'summary/edit_status.html', context)
+    # return edit_status(request, user_id, contest_id)
+    return HttpResponseRedirect(reverse('summary:edit_status', args=[user_id, contest_id]))
+
 
 
 @login_required
@@ -160,8 +168,7 @@ def edit_status(request, user_id, contest_id):
                 'summary:display_status',
                 args=[user_id, contest_id]
             ))
-
-    context = {'user_handle': user, 'contest': cts, 'form': form}
+    context = {'user_handle': user, 'contest': cts, 'form': form, 'tag': "Edit"}
     return render(request, 'summary/edit_status.html', context)
 
 @login_required

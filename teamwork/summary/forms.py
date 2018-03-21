@@ -27,16 +27,23 @@ class StatusForm(forms.ModelForm):
             ('2', 'Upsolved'),
             ('3', 'Not Solved'),
         ]
+
+
         for i in range(0, cts.num_of_problem):
             self.fields['p' + str(i)] = forms.ChoiceField(
                 label='Problem ' + chr(ord('A') + i),
                 choices=STATUS_OF_AC
             )
             self.initial['p' + str(i)] = '3'
+            # CONTRIBUTOR_FIELD = [
+            #     ('1', user.userprofile.team_member_1),
+            #     ('2', user.userprofile.team_member_2),
+            #     ('4', user.userprofile.team_member_3),
+            # ]
             CONTRIBUTOR_FIELD = [
-                ('1', user.userprofile.team_member_1),
-                ('2', user.userprofile.team_member_2),
-                ('4', user.userprofile.team_member_3),
+                ('1', ""),
+                ('2', ""),
+                ('4', ""),
             ]
             self.fields['c' + str(i)] = forms.MultipleChoiceField(
                 label='Contributor',

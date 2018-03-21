@@ -1,14 +1,20 @@
 {% extends "index_page/base.html" %}
-
+{% load widget_tweaks %}
 {% block content %}
 
-<p>Edit status</p>
 
-<form action="{% url 'summary:edit_status' user_handle.id contest.id %}" method='post'>
-	{% csrf_token %}
-	{{ form.as_p }}
-	{{ form.media }}
-	<button name="submit">submit</button>
-</form>
+<div class="section">
+	<h1>{{ tag }} Summary</h1>
+	<hr>
+	{% if tag == 'Edit' %}
+	<form action="{% url 'summary:edit_status' user_handle.id contest.id %}" method='post'>
+	{% else %}
+	<form action="{% url 'summary:add_status' user_handle.id contest.id %}" method='post'>
+	{% endif %}
+		{% csrf_token %}
+		{% include 'summary/status_form.html' %}
+	</form>
+</div>
+
 
 {% endblock content %}

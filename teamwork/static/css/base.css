@@ -48,3 +48,14 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+#status-form {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+#status-form input[type=checkbox] {
+    transform: scale(2);
+    margin-top:10%;
+}
+

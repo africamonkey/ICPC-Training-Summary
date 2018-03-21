@@ -1,0 +1,40 @@
+
+
+
+
+
+<div id="status-form">
+    <center>
+        {{ form.summary }}
+    </center>
+        <table class="table table-hover" style="text-align: center;">
+            <thead>
+                <tr>
+                    <th scope="col">Problem</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">{{user.userprofile.team_member_1}}</th>
+                    <th scope="col">{{user.userprofile.team_member_2}}</th>
+                    <th scope="col">{{user.userprofile.team_member_3}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in form %}
+                {% if 'Problem' in item.label %}
+                <tr>
+                    <th scope="row">{{ item.label.8 }}</th>
+                    <th scope="row">{{ item }}</th>
+                {% elif 'Contributor' in item.label %}
+                    <th scope="row">{{ item.0 }}</th>
+                    <th scope="row">{{ item.1 }}</th>
+                    <th scope="row">{{ item.2 }}</th>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    {{ form.media }}
+    <center>
+        <button class="btn btn-primary" name="Submit">Submit</button>
+        <a class="btn btn-outline-primary" href="{% url 'contests:display_contest' contest.id %}">Go Back</a>
+    </center>
+</div>

@@ -34,7 +34,7 @@ def add_contest(request):
 	
 	context = {'form': form}
 	return render(request, 'contests/add_contest.html', context)
-
+	
 def display_contest(request, contest_id):
 	contest = get_object_or_404(Contest, pk=contest_id)
 	summary = Status.objects.filter(contest=contest)
