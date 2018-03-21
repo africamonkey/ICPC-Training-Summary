@@ -2,3 +2,5 @@ Django==2.0.3
 -e git+https://github.com/treyhunner/django-simple-history.git@django2.0#egg=django-simple-history
 pytz==2018.3
 django-widget-tweaks==1.4.1
+django-markdownx==2.0.22
+django-bootstrap-datepicker-plus==1.0.0

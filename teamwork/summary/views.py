@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user
 
+from markdownx.utils import markdownify
+
 from contests.models import Contest
 # from users.models import UserProfile
 from .models import Status
@@ -70,7 +72,12 @@ def display_status(request, user_id, contest_id):
         status = Status.objects.get(contest=cts, owner=user.userprofile)
     except ObjectDoesNotExist:
         return HttpResponseRedirect(reverse('summary:add_status', args=[user_id, contest_id]))
-    context = {'status': status, 'contest_id': contest_id, 'user_id': user_id}
+    context = {
+        'status': status,
+        'contest_id': contest_id,
+        'user_id': user_id,
+        'summary_markdown': markdownify(status.summary)
+    }
     return render(request, 'summary/display_status.html', context)
 
 

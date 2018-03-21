@@ -17,6 +17,7 @@
     <a class="btn btn-outline-primary" href="/">Go Back</a>
     <input type="hidden" name="next" value="{% url 'index_page:index' %}" />
   </form>  
+  {{ team_form.media }}
   <p>Have an account? <a href="{% url 'users:login' %}">Click</a> to log in.</p> 
   </div>   
 

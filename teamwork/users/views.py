@@ -6,6 +6,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 
+from markdownx.utils import markdownify
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.contrib.auth.models import User
@@ -115,6 +117,7 @@ def show_user(request, user_id):
 		'profile': profile,
 		'summarylist': summarylist,
 		'problem': problem,
+		'team_description_markdown': markdownify(profile.team_description)
 	}
 	return render(request, 'users/show_user.html', context)
 

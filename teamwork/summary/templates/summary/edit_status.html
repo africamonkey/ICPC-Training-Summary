@@ -7,6 +7,7 @@
 <form action="{% url 'summary:edit_status' user_handle.id contest.id %}" method='post'>
 	{% csrf_token %}
 	{{ form.as_p }}
+	{{ form.media }}
 	<button name="submit">submit</button>
 </form>
 

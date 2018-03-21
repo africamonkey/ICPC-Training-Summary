@@ -13,7 +13,7 @@
 	<hr>
 	<div class="contest_display">
 		<h2><a href="{% url 'contests:display_contest' i.id %}">{{ i.name }}</a></h2>
-		<div><p>Source: {{ i.source }}</p><p>Start Time: {{ i.date }}</p></div>
+		<div><p>Source: {{ i.source }}</p><p>Start Time: {{ i.date|date:"Y-m-d" }}</p></div>
 	</div>
 	{% empty %}
 	<hr>

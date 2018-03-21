@@ -4,7 +4,7 @@ from simple_history.models import HistoricalRecords
 class Contest(models.Model):
 	name = models.CharField(max_length = 200)
 	source = models.CharField(max_length = 200)
-	date = models.DateTimeField()
+	date = models.DateField()
 	NUM_OF_PROBLEM = (
 		(5, '5 - E'),
 		(6, '6 - F'),

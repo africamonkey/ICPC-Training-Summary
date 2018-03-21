@@ -9,7 +9,7 @@
 			<p> {{ status.contest.date }} </p>
             <p> {{ status.contest.num_of_problem }} </p>
             <br />
-            <p> {{ status.summary }}</p>
+            <p> {{ summary_markdown|safe }}</p>
 			<p> {{ status.ac_status }}</p>
 			<p> {{ status.contributor }}</p>
 

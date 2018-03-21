@@ -1,7 +1,6 @@
-from django.forms import ModelForm, Textarea
+from django.forms import ModelForm
+from markdownx.fields import MarkdownxFormField
 from .models import UserProfile
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
 
 class TeamForm(ModelForm):
 	class Meta:
@@ -13,9 +12,6 @@ class TeamForm(ModelForm):
 			'team_member_3',
 			'team_description',
 		)
-		widgets = {
-			'team_description':Textarea(attrs={'rows':5})
-		}
 		labels = {
 			'team_name': 'Team Name',
 			'team_member_1': 'Team Member 1',
@@ -23,4 +19,8 @@ class TeamForm(ModelForm):
 			'team_member 3': 'Team Member 3',
 			'team_description': 'Team Description',
 		}
+
+	def __init__(self, *args, **kwargs):
+		super(TeamForm, self).__init__(*args, **kwargs)
+		self.fields['team_description'] = MarkdownxFormField()
 

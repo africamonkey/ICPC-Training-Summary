@@ -23,4 +23,5 @@ urlpatterns = [
 	path('contests/', include('contests.urls')),
 	path('status/', include('summary.urls')),
 	path('', include('index_page.urls')),
+    path('markdownx/', include('markdownx.urls')),
 ]
