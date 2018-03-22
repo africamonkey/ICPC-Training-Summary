@@ -39,8 +39,8 @@
 
 	{% if user.id is not None %}
 	<div style="text-align:right">
-		<a class={{ "btn btn-sm btn-primary" href="{% url 'summary:display_status' user_id contest.id %}">View My Summary</a>
-		<a class={{ "btn btn-sm btn-primary" href="{% url 'contests:edit_contest' contest.id %}">Edit Contest</a>
+		<a class="btn btn-sm btn-primary" href="{% url 'summary:display_status' user_id contest.id %}">View My Summary</a>
+		<a class="btn btn-sm btn-primary" href="{% url 'contests:edit_contest' contest.id %}">Edit Contest</a>
 	</div>
 	{% endif %}
 </div>
