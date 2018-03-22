@@ -126,6 +126,7 @@ def display_status(request, user_id, contest_id):
 
 @login_required
 def add_status(request, user_id, contest_id):
+    rq = {}
     cts = get_object_or_404(Contest, pk=contest_id)
     user = get_user(request)
 
@@ -144,6 +145,7 @@ def add_status(request, user_id, contest_id):
         else:
             form = StatusForm(contest_id=contest_id, user_id=user_id, data=request.POST)
             if form.is_valid():
+                rq = form.cleaned_data.items()
                 # convert string from fields to ac_status and contributor
                 ac_s = []
                 ctb = []
@@ -159,12 +161,12 @@ def add_status(request, user_id, contest_id):
                 status.ac_status = strlist_to_int(ac_s, 4)
                 status.contributor = strlist_to_int(ctb, 8)
                 status.save()
-                return HttpResponseRedirect(reverse(
-                    'summary:display_status',
-                    args=[user_id, contest_id]
-                ))
+                # return HttpResponseRedirect(reverse(
+                #     'summary:display_status',
+                #     args=[user_id, contest_id]
+                # ))
 
-        context = {'user_handle': user, 'contest': cts, 'form': form, 'tag': "Add"}
+        context = {'user_handle': user, 'contest': cts, 'form': form, 'tag': "Add", 'rq': rq}
         return render(request, 'summary/edit_status.html', context)
     # return edit_status(request, user_id, contest_id)
     return HttpResponseRedirect(reverse('summary:edit_status', args=[user_id, contest_id]))
@@ -172,6 +174,7 @@ def add_status(request, user_id, contest_id):
 
 @login_required
 def edit_status(request, user_id, contest_id):
+    rq = {}
     cts = get_object_or_404(Contest, pk=contest_id)
     user = get_user(request)
     if user.id != user_id:
@@ -189,6 +192,7 @@ def edit_status(request, user_id, contest_id):
     else:
         form = StatusForm(contest_id=contest_id, user_id=user_id, data=request.POST)
         if form.is_valid():
+            rq = form.cleaned_data.items()
             # convert string from fields to ac_status and contributor
             ac_s = []
             ctb = []
@@ -202,11 +206,11 @@ def edit_status(request, user_id, contest_id):
             status.ac_status = strlist_to_int(ac_s, 4)
             status.contributor = strlist_to_int(ctb, 8)
             status.save()
-            return HttpResponseRedirect(reverse(
-                'summary:display_status',
-                args=[user_id, contest_id]
-            ))
-    context = {'user_handle': user, 'contest': cts, 'form': form, 'tag': "Edit"}
+            # return HttpResponseRedirect(reverse(
+            #     'summary:display_status',
+            #     args=[user_id, contest_id]
+            # ))
+    context = {'user_handle': user, 'contest': cts, 'form': form, 'tag': "Edit", 'rq': rq}
     return render(request, 'summary/edit_status.html', context)
 
 
