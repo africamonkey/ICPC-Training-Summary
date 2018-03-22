@@ -92,6 +92,12 @@ def list_users(request, page_id = 1):
 def show_user(request, user_id):
 	user = get_object_or_404(User, pk=user_id)
 	profile = get_object_or_404(UserProfile, user=user)
+	if request.user is not None:
+		user_id = request.user.id
+	else:
+		user_id = 0
+	if user_id is None:
+		user_id = 0
 	summary = Status.objects.filter(owner=profile).order_by('-contest')
 	summarylist = []
 	max_problem = 0
@@ -127,6 +133,7 @@ def show_user(request, user_id):
 	# tail is contest.name
 	context = {
 		'user_c': user,
+		'user_id': user_id,
 		'profile': profile,
 		'summarylist': summarylist,
 		'problem': problem,

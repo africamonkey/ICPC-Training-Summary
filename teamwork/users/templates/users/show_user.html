@@ -4,6 +4,13 @@
 {% block title %}Team Information{% endblock title %}
 {% block content %}
 <div class="section">
+    {% if user_c.id == user_id %}
+    <h2>Owner Zone</h2>
+    <div style="text-align:left">
+      <a class="btn btn-primary" href="{% url 'users:histories' %}">View History</a>
+      <a class="btn btn-primary" href="{% url 'users:modify_profiles' %}">Edit Profile</a>
+    </div>
+    {% endif %}
   <h2>Team Information</h2>
   <table cellpadding="10">
     <tr>

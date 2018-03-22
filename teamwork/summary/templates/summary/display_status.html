@@ -23,11 +23,15 @@
 		</tr>
 	</table>
 
-	{% if user.id == status.owner.user.id %}
 	<div style="text-align:right">
+	{% if user.id == status.owner.user.id %}
 		<a class="btn btn-sm btn-primary" href="{% url 'summary:add_status' status.owner.user.id status.contest.id %}">Edit Summary</a>
-	</div>
+		<a class="btn btn-sm btn-primary" href="{% url 'summary:histories' status.owner.user.id status.contest.id %}">View History</a>
+	{% else %}
+		<a class="btn btn-sm btn-secondary disabled" href="{% url 'summary:add_status' status.owner.user.id status.contest.id %}">Edit Summary</a>
+		<a class="btn btn-sm btn-secondary disabled" href="{% url 'summary:histories' status.owner.user.id status.contest.id %}">View History</a>
 	{% endif %}
+	</div>
 </div>
 
 <div class="section">
