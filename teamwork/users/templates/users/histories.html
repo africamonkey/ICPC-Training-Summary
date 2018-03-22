@@ -32,12 +32,16 @@
     <div class="d-flex justify-content-between">
         <div>
             {% if page_id > 1 %}
-            <a class="btn btn-sm btn-primary" href="{% url 'users:histories2' page_id|add:"-1" %}">Previous</a>
+            <a class="btn btn-primary" href="{% url 'users:histories2' page_id|add:"-1" %}">Previous</a>
+            {% else %}
+            <a class="btn btn-secondary disabled" href="{% url 'users:histories2' page_id|add:"-1" %}">Previous</a>
             {% endif %}
         </div>
         <div>
             {% if page_id < tot_page %}
-            <a class="btn btn-sm btn-primary" href="{% url 'users:histories2' page_id|add:"1" %}">Next</a>
+            <a class="btn btn-primary" href="{% url 'users:histories2' page_id|add:"1" %}">Next</a>
+            {% else %}
+            <a class="btn btn-secondary disabled" href="{% url 'users:histories2' page_id|add:"1" %}">Next</a>
             {% endif %}
         </div>
     </div>

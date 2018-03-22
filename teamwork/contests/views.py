@@ -1,5 +1,6 @@
 import math
 
+from django.contrib.auth import get_user
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
@@ -38,6 +39,12 @@ def add_contest(request):
 	return render(request, 'contests/add_contest.html', context)
 	
 def display_contest(request, contest_id):
+	if request.user is not None:
+		user_id = request.user.id
+	else:
+		user_id = 0
+	if user_id is None:
+		user_id = 0
 	contest = get_object_or_404(Contest, pk=contest_id)
 	summary = Status.objects.filter(contest=contest)
 	problem = []
@@ -82,7 +89,7 @@ def display_contest(request, contest_id):
 	# body[0] -> ac status, True=Solved, False=Upsolved, None=Unsolved
 	# body[1] -> contributor string
 	# tail is the owner's team_name
-	context = {'contest': contest, 'summarylist': summarylist, 'problem': problem}
+	context = {'contest': contest, 'summarylist': summarylist, 'problem': problem, 'user_id': user_id}
 	return render(request, 'contests/display_contest.html', context)
 
 @login_required
