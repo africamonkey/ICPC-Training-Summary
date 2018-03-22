@@ -6,10 +6,12 @@
 <div class="section">
     {% if user_c.id == user_id %}
     <h2>Owner Zone</h2>
-    <div style="text-align:left">
-      <a class="btn btn-primary" href="{% url 'users:histories' %}">View History</a>
-      <a class="btn btn-primary" href="{% url 'users:modify_profiles' %}">Edit Profile</a>
-    </div>
+	<table cellpadding="10">
+	<tr>
+      <th><a class="btn btn-sm btn-primary" href="{% url 'users:modify_profiles' %}">Edit Profile</a></th>
+      <th><a class="btn btn-sm btn-primary" href="{% url 'users:histories' %}">View History</a></th>
+	</tr>
+	</table>
     {% endif %}
   <h2>Team Information</h2>
   <table cellpadding="10">
@@ -21,7 +23,6 @@
       <th>Members</th>
       <th>{{ profile.team_member_1 }} , {{ profile.team_member_2 }} , {{ profile.team_member_3 }}</th>
     </tr>
-	</ul>
   </table>
   <h2>User Information</h2>
   <table cellpadding="10">
