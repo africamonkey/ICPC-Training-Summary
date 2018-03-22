@@ -6,7 +6,7 @@
 <div class="section">
   <form class="form-users" method="post" action="{% url 'users:register' %}" >
     {% csrf_token %}
-    <h2>Register</h2>
+      <h2>Register</h2>
     <hr>
     <div class="form-group">
       {% include 'users/forms/user_form.html' %}

@@ -7,7 +7,7 @@
 <div class="section">
   <form action="{% url 'users:modify_profiles' %}" method='post' novalidate class="myform">
     {% csrf_token %}
-    <h2>Modify Profiles</h2>
+      <h2>Modify Profiles</h2>
     <hr>
     {% include 'users/forms/team_form.html' %}
   <div style="text-align: center">
