@@ -65,6 +65,14 @@ def list_users(request, page_id = 1):
 			profile = UserProfile.objects.get(user = user)
 		except ObjectDoesNotExist:
 			profile = UserProfile.objects.create(user = user)
+		if profile.team_name.strip() == "":
+			profile.team_name = "(Undefined)"
+		if profile.team_member_1.strip() == "":
+			profile.team_member_1 = "(Undefined)"
+		if profile.team_member_2.strip() == "":
+			profile.team_member_2 = "(Undefined)"
+		if profile.team_member_3.strip() == "":
+			profile.team_member_3 = "(Undefined)"
 		my_profile = {
 			'id': user.id,
 			'username': user.username,
