@@ -66,6 +66,7 @@ ROOT_URLCONF = 'teamwork.urls'
 
 FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 LOGIN_REDIRECT_URL = '/'
+MARKDOWNX_EDITOR_RESIZABLE = False
 
 TEMPLATES = [
     {

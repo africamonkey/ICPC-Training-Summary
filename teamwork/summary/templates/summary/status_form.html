@@ -32,9 +32,9 @@
                 {% endfor %}
             </tbody>
         </table>
-    {{ form.media }}
     <center>
         <button class="btn btn-primary" name="Submit">Submit</button>
         <a class="btn btn-outline-primary" href="{% url 'contests:display_contest' contest.id %}">Go Back</a>
     </center>
 </div>
+{{ form.media }}

@@ -16,11 +16,12 @@ class TeamForm(ModelForm):
 			'team_name': 'Team Name',
 			'team_member_1': 'Team Member 1',
 			'team_member_2': 'Team Member 2',
-			'team_member 3': 'Team Member 3',
+			'team_member_3': 'Team Member 3',
 			'team_description': 'Team Description',
 		}
 
 	def __init__(self, *args, **kwargs):
 		super(TeamForm, self).__init__(*args, **kwargs)
 		self.fields['team_description'] = MarkdownxFormField()
+		self.fields['team_description'].label = 'Team Description'
 

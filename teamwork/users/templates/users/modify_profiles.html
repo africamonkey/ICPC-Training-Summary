@@ -1,19 +1,19 @@
-{% extends "users/base.html" %}
-{% load staticfiles %}
+{% extends "index_page/base.html" %}
+
 {% load widget_tweaks %}
 {% block title %}Modify Profiles{% endblock title %}
-{% block stylesheet %}
-<link rel="stylesheet" href="{% static 'users/css/login.css' %}">
-{% endblock stylesheet %}
 
 {% block content %}
-  <form action="{% url 'users:modify_profiles' %}" method='post' novalidate>
+<div class="section">
+  <form action="{% url 'users:modify_profiles' %}" method='post' novalidate class="myform">
     {% csrf_token %}
     <h2>Modify Profiles</h2>
     <hr>
     {% include 'users/forms/team_form.html' %}
-  <button name="submit" class="btn btn-primary">Submit</button>
-  <a class="btn btn-outline-primary" href="/">Go Back</a>
+  <div style="text-align: center">
+    <button name="submit" class="btn btn-primary">Submit</button>
+    <a class="btn btn-outline-primary" href="/">Go Back</a>
+  </div>
   </form>
-  {{ team_form.media }}
+</div>
 {% endblock content %}
