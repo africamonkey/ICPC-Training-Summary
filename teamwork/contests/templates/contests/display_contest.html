@@ -29,10 +29,12 @@
 				{{ contest.contest_type }}
 			</th>
 		</tr>
+		{% if contest.contest_type == 'Online' %}
 		<tr>
 			<th>Link</th>
-			<th>{{ contest.contest_link|urlize | urlize_target_blank:100 }}</th>
+			<th>{{ contest.contest_link|urlize|urlize_target_blank }}</th>
 		</tr>
+		{% endif %}
 	</table>
 
 

@@ -7,5 +7,5 @@ register = template.Library()
 
 @register.filter(is_safe=True, needs_autoescape=True)
 @stringfilter
-def urlize_target_blank(value, limit, autoescape=None):
+def urlize_target_blank(value, autoescape=None):
     return mark_safe(value.replace('<a', '<a target="_blank"'))
