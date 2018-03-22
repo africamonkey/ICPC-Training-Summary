@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'widget_tweaks', 
     'markdownx',
     'bootstrap_datepicker',
+	'fontawesome',
 
 	'contests',
 	'users',

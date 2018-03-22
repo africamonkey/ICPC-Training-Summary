@@ -1,13 +1,15 @@
-{% load staticfiles %}<!DOCTYPE html>
+{% load staticfiles %}
+{% load fontawesome %}
+<!DOCTYPE html>
+
 <html>
 
 <head>
   <meta charset="utf-8">
   <title>{% block title %}Test title{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> 
-  <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}"> 
-  
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  {% fontawesome_stylesheet %}
   {% block stylesheet %}{% endblock %}
 </head>
 

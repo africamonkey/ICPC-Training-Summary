@@ -1,6 +1,11 @@
 Django==2.0.3
--e git+https://github.com/treyhunner/django-simple-history.git@django2.0#egg=django-simple-history
-pytz==2018.3
-django-widget-tweaks==1.4.1
-django-markdownx==2.0.22
 django-bootstrap-datepicker-plus==1.0.0
+django-fontawesome==0.3.1
+django-markdownx==2.0.22
+-e git+https://github.com/treyhunner/django-simple-history.git@2fe403889f0fd61f7443397070372c24ac824978#egg=django_simple_history
+django-widget-tweaks==1.4.1
+Markdown==2.6.11
+Pillow==5.0.0
+pkg-resources==0.0.0
+pytz==2018.3
+PyYAML==3.12
