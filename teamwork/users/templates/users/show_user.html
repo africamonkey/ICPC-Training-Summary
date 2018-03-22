@@ -5,20 +5,24 @@
 {% block content %}
 <div class="section">
   <h2>Team Information</h2>
-  <table>
+  <table cellpadding="10">
     <tr>
-      <td>Team</td>
-      <td>{{ profile.team_name }}</td>
+	  <th>Team</th>
+      <th>{{ profile.team_name }}</th>
     </tr>
     <tr>
-      <td>Members</td>
-      <td>{{ profile.team_member_1 }} , {{ profile.team_member_2 }} , {{ profile.team_member_3 }}</td>
+      <th>Members</th>
+      <th>{{ profile.team_member_1 }} , {{ profile.team_member_2 }} , {{ profile.team_member_3 }}</th>
     </tr>
+	</ul>
   </table>
   <h2>User Information</h2>
-  <ul>
-    <li>Username: {{ user.username }}</li>
-  </ul>
+  <table cellpadding="10">
+    <tr>
+	  <th>Username</th>
+	  <th>{{ user_c.username }}</th>
+	</tr>
+  </table>
   {{team_description_markdown|safe}}
   <table class="table">
     <thead>

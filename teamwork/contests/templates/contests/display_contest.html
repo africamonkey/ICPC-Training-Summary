@@ -18,20 +18,24 @@
 			<th>{{ contest.num_of_problem }}</th>
 		</tr>
 		<tr>
+			<th>Type</th>
+			<th>
+				{% if contest.contest_type == 'Onsite' %}
+					<a data-toggle="tooltip" title="Onsite Contest">
+					<i class="icon-lightbulb icon-large"></i>
+					</a>
+				{% endif %}
+				{{ contest.contest_type }}
+			</th>
+		</tr>
+		<tr>
 			<th>Link</th>
 			<th>{{ contest.contest_link|urlize }}</th>
 		</tr>
 	</table>
-	<!-- <dl>
-		<dt>Source:</dt>
-		<dd>{{ contest.source }}</dd>
-		<dt>Start Time:</dt>
-		<dd>{{ contest.date | date:"Y-m-d" }}</dd>
-		<dt>Number of Problems:</dt>
-		<dd>{{ contest.num_of_problem }}</dd>
-		<dt>Link:</dt>
-		<dd><a href="{{ contest.contest_link }}">Contest Link</a></dd>
-	</dl> -->
+
+
+	{% if user.id is not None %}
 	<div style="text-align:right">
 		<a class={{ user.id|yesno:'"btn btn-sm btn-primary","btn btn-sm btn-secondary disabled"'|safe }} href="{% url 'summary:display_status' user_id contest.id %}">View My Summary</a>
 		<a class={{ user.id|yesno:'"btn btn-sm btn-primary","btn btn-sm btn-secondary disabled"'|safe }} href="{% url 'contests:edit_contest' contest.id %}">Edit Contest</a>
