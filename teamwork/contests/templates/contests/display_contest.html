@@ -19,7 +19,14 @@
 		</tr>
 		<tr>
 			<th>Type</th>
-			<th>{{ contest.contest_type }}</th>
+			<th>
+				{% if contest.contest_type == 'Onsite' %}
+					<a data-toggle="tooltip" title="Onsite Contest">
+					<i class="icon-lightbulb icon-large"></i>
+					</a>
+				{% endif %}
+				{{ contest.contest_type }}
+			</th>
 		</tr>
 		<tr>
 			<th>Link</th>

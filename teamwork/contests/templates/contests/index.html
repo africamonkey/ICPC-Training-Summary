@@ -25,7 +25,16 @@
 		<tbody>
 			{% for i in contest %}
 			<tr>
-				<td><a href="{% url 'contests:display_contest' i.id %}">{{ i.name }} </a></td>
+				<td>
+					{% if i.contest_type == 'Onsite' %}
+					<a data-toggle="tooltip" title="Onsite Contest">
+					<i class="icon-lightbulb icon-large"></i>
+					</a>
+					{% endif %}
+					<a href="{% url 'contests:display_contest' i.id %}">
+						{{ i.name }} 
+					</a>
+				</td>
 				<td>{{ i.date | date:"Y-m-d" }}</td>
 				<td>{{ i.source }}</td>
 			</tr>
