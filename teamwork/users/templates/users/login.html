@@ -14,19 +14,19 @@
   <h2 style="text-align:center">Log in</h2>
   <form class="form-signin" method="post" action="{% url 'users:login' %}" novalidate>
       {% csrf_token %}
+      {% if form.error_messages %}
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        Incorrect username or password.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endif %}
       <label for="id_username" class="sr-only">Username</label>
         {{ form.username | add_class:"form-control" | attr:"placeholder:Username"}}
       <label for="id_password" class="sr-only">Password</label> 
         {{ form.password | add_class:"form-control" | attr:"placeholder:Password"}}
-        {% if form.error_messages %}
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          <strong>Username or Password invalid. Please try again. </strong>
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-           <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-      
-        {% endif %}
+        
     <center>
       <button class="btn btn-primary " type="submit" name="submit">Submit</button>
       <a href="{% url 'users:register' %}" class="btn btn-outline-primary">Register</a>
