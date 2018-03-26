@@ -6,7 +6,7 @@
 
 
 <div class="section">
-	<form action="{% url 'contests:edit_contest' contest.id %}" method='post' class="myform">
+	<form action="{% url 'contests:edit_contest' contest.id %}" method='post' class="myforms">
 		{% csrf_token %}
 		{% for item in form %}
 		<div class="form-group">

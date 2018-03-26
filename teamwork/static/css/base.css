@@ -1,5 +1,6 @@
 
 .main {
+    position: relative;
     padding-top: 30px;
     padding-bottom: 30px;
     color: rgb(85, 85, 85);
@@ -20,7 +21,7 @@
 }
 
 #result_table {
-    font-size: 10px;
+    font-size: 12px;
 }
 
 .error-message {

@@ -4,9 +4,7 @@
 
 
 <div id="status-form">
-    <center>
-        {{ form.summary }}
-    </center>
+        <h4>Result</h4>
         <table class="table table-hover" style="text-align: center;">
             <thead>
                 <tr>
@@ -32,6 +30,10 @@
                 {% endfor %}
             </tbody>
         </table>
+        <h4>Summary</h4>
+        <center>
+            {{ form.summary }}
+        </center>
     <center>
         <button class="btn btn-primary" name="Submit">Submit</button>
         <a class="btn btn-outline-primary" href="{% url 'contests:display_contest' contest.id %}">Go Back</a>

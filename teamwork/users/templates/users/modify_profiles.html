@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="section">
-  <form action="{% url 'users:modify_profiles' %}" method='post' novalidate class="myform">
+  <form action="{% url 'users:modify_profiles' %}" method='post' novalidate class="myforms">
     {% csrf_token %}
       <h2>Modify Profiles</h2>
     <hr>

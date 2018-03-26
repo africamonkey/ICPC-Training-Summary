@@ -18,6 +18,9 @@ from summary.models import Status
 from summary.views import int_to_strlist, templatelist
 
 def login_view(request):
+	print("call login_view")
+	if request.user.is_authenticated:
+		return HttpResponseRedirect(request.POST.get('next', '/') or reverse('index_page:index'))
 	if request.method != 'POST':
 		form = AuthenticationForm(request)
 	else:
