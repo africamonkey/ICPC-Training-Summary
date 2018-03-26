@@ -14,7 +14,7 @@
   <h2 style="text-align:center">Log in</h2>
   <form class="form-signin" method="post" action="{% url 'users:login' %}" novalidate>
       {% csrf_token %}
-      {% if form.error_messages %}
+      {% if form.errors %}
       <div class="alert alert-danger alert-dismissible fade show" role="alert">
         Incorrect username or password.
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
