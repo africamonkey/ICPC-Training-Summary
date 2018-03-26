@@ -31,9 +31,7 @@
             </tbody>
         </table>
         <h4>Summary</h4>
-        <center>
-            {{ form.summary }}
-        </center>
+        {{ form.summary }}
     <center>
         <button class="btn btn-primary" name="Submit">Submit</button>
         <a class="btn btn-outline-primary" href="{% url 'contests:display_contest' contest.id %}">Go Back</a>
