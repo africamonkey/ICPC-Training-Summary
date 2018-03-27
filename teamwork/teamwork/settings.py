@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+from datetime import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -66,13 +67,19 @@ ROOT_URLCONF = 'teamwork.urls'
 
 FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 LOGIN_REDIRECT_URL = '/'
+
+# markdownx options
 MARKDOWNX_EDITOR_RESIZABLE = False
 MARKDOWNX_MARKDOWN_EXTENSIONS = [
     'markdown.extensions.extra',
     'markdown.extensions.nl2br',
+    'markdown.extensions.codehilite',
 ]
-USE_TZ = True
-TIME_ZONE = 'Asia/Hong_Kong'
+
+# Media File (img, etc..)
+MEDIA_ROOT = BASE_DIR + '/media/'
+MEDIA_URL = '/media/'
+MARKDOWNX_MEDIA_PATH = datetime.now().strftime('markdown/upload/%Y/%m/%d')
 
 TEMPLATES = [
     {
@@ -130,7 +137,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Hong_Kong'
 
 USE_I18N = True
 
