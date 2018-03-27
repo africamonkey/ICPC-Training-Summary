@@ -67,6 +67,10 @@ ROOT_URLCONF = 'teamwork.urls'
 FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 LOGIN_REDIRECT_URL = '/'
 MARKDOWNX_EDITOR_RESIZABLE = False
+MARKDOWNX_MARKDOWN_EXTENSIONS = [
+    'markdown.extensions.extra',
+    'markdown.extensions.nl2br',
+]
 USE_TZ = True
 TIME_ZONE = 'Asia/Hong_Kong'
 
