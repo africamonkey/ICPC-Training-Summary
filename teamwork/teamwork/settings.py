@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 	'simple_history',
     'widget_tweaks', 
     'markdownx',
-    'bootstrap_datepicker',
+	'bootstrap_datepicker_plus',
 	'fontawesome',
 
 	'contests',

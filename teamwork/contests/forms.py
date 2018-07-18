@@ -1,4 +1,4 @@
-from bootstrap_datepicker.widgets import DatePicker
+from bootstrap_datepicker_plus.widgets import DatePickerInput
 from django import forms
 
 from .models import Contest
@@ -8,7 +8,7 @@ class ContestForm(forms.ModelForm):
 		model = Contest
 		fields = ['name', 'source', 'date', 'num_of_problem', 'contest_type', 'contest_link']
 		widgets = {
-			'date': DatePicker(
+			'date': DatePickerInput(
 				options={
 					"format": "yyyy/mm/dd",
 					"autoclose": True
